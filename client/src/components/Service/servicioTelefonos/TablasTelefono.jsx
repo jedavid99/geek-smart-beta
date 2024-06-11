@@ -3,8 +3,21 @@ import { Space, Table, Tag, Form, Input, Select, Button, Dropdown, Tooltip } fro
 import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, SyncOutlined, DownOutlined ,SearchOutlined} from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { OpcionesServicio } from '../OpcionesServicio';
+import Axios from "axios";
+
+
+
+
+
+
+
+
+
+export const TablaTelefonos = () => {
 
 const data = [
+
+
   
   {
     key: '1',
@@ -19,50 +32,13 @@ const data = [
     opciontele: <OpcionesServicio/>
 
   },
-  {
-    key: '2',
-    Codigo: '02',
-    dni:'9634468',
-    nombre: 'Jim Green',
-    modelo: 'Xiaomi a20',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo" ,
-    precioservite: '150.00',
-    estatud: ['presupuestado'],
-    opciontele:<OpcionesServicio/>
-
-
-  },
-  {
-    key: '3',
-    Codigo: '03',
-    dni:'9634468',
-    nombre: 'Joe Black',
-    modelo: 'samsung a20',
-    numerocliente: '541151747883',
-    descriccion: "cambio de pin de carga",
-    precioservite: '200.00',
-    estatud: ['presupuestal',],
-    opciontele:<OpcionesServicio/>
-
-
-  },
-  {
-    key: '4',
-    Codigo: '04',
-    dni:'96374468',
-    nombre: 'samuel luna',
-    modelo: 'moto e32',
-    numerocliente: '541151747883',
-    precioservite: '30.00',
-    estatud: ['reparado', 'entregado'],
-     descriccion: "cambio de microfono",
-    opciontele: <OpcionesServicio/>
-
-  },
+  
+  
+  
 ];
-export const TablaTelefonos = () => {
+
   const [searchText, setSearchText] = useState('');
+  const [listasTelefonos,setListaTelefonos] = useState([])
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -74,6 +50,22 @@ export const TablaTelefonos = () => {
     clearFilters();
     setSearchText('');
   };
+
+
+
+
+
+
+  const getTelefonosLista = () => {
+    Axios.get("http://localhost:3001/producto").then((response) => {
+      setListaTelefonos(response.data);
+  });
+    }
+
+
+
+
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters,  }) => (
       <div
@@ -220,12 +212,15 @@ export const TablaTelefonos = () => {
       title: 'opciones',
       dataIndex: 'opciontele',
     },
-  ];
+   ];
   
 
   
   
-  return <Table columns={columns}   
+  return <div>
+  
+  
+  <Table columns={columns}   
   expandable={{
     expandedRowRender: (record) => (
       <p
@@ -242,8 +237,31 @@ export const TablaTelefonos = () => {
     ),
     
     rowExpandable: (record) => record.name !== 'Not Expandable',
-  }} dataSource={data} />;
+  }} dataSource={data} />
 
 
+  
+<table class="table-auto">
 
+
+{listasTelefonos.map((val,key)=>{
+    return <tbody>
+    <tr>
+      <td>{val.orde}</td>
+      <td>{val.nombre}</td>
+      <td>{val.DNI}</td>
+      <td>{val.categoria}</td>
+      <td></td>
+
+    </tr>
+  
+  </tbody>
+    
+  })
+  }
+
+  
+</table>
+
+</div>
 }

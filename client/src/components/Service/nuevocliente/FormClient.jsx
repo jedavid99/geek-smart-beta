@@ -25,61 +25,48 @@ export const FormCient = () => {
   const [precio, setPrecio] = useState("");
   const [servicio, setServicio] = useState("");
   const [dispositivo, setDispositivo] = useState("");
-
-  const [numerocli, setNumerocli] = useState("");
-  const [precioser, setPrecioser] = useState("");
-
-  const [descripcionser, setDescripcion] = useState("");
+  const [DNI,setDNI] = useState("");
+  const [telefono_Cliente, setTelefono_Cliente] = useState("");
+  const [descripcion, setDescripcion] = useState("");
 
   
 
 
-  const AgregarCliente = (e) => {
-
-
-
-
-
-
-
+  const AgregarCliente = () => {
+    Axios.post("http://localhost:3001/producto", {
+    nombre:nombre,
+    categoria:categoria,
+    precio:precio,
+    servicio:servicio,
+    dispositivo:dispositivo,
+    DNI:DNI,
+    telefono_Cliente:telefono_Cliente,
+    descripcion:descripcion,
+}).then(() => {
+    alert("cliente agregado")
+} )
 
 
 
     
 
     }
-  //   e.preventDefault()
-  //   Axios.post('http://localhost:3001', {
-  //     nombre: nombre,
-  //     categoria: categoria,
-  //     precio: precio
-  //   }).then(()=>{
-  //     setNombre('')
-  //     setCategoria('')
-  //     setPrecio('')
-  //   })
-  // }
-
+ 
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     console.log("Valor seleccionado:", selectedValue);
     setCategoria(selectedValue); // Actualiza el estado con el valor seleccionado
   };
-  const [open, setOpen] = useState(false);
-  const showDrawer = () => {
-    setOpen(true);
-  };
-  const onClose = () => {
-    setOpen(false);
-  };
+  
 
   return (
     <>
       <Form layout="vertical" hideRequiredMark>
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item
+          <div className="text-7xl">
+             <Form.Item
               name="nombrecli"
               label="Nombre completo del cliente:"
               rules={[
@@ -89,13 +76,15 @@ export const FormCient = () => {
                 },
               ]}
             >
+
+            
               <Input
                 onChange={(event) => {
                   setNombre(event.target.value);
                 }}
                 placeholder="Nombre del cliente"
               />
-            </Form.Item>
+            </Form.Item></div>
           </Col>
           <Col span={12}>
             <Form.Item name="categoria" label="Categoria:" rules={[]}>
@@ -125,7 +114,25 @@ export const FormCient = () => {
               />
             </Form.Item>
           </Col>
-
+          <Col span={12}>
+            <Form.Item
+              name="DNI"
+              label="DNI"
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor ingrese el DNI",
+                },
+              ]}
+            >
+              <Input
+                onChange={(event) => {
+                  setDNI(event.target.value);
+                }}
+                placeholder="Tipo de dispositivo"
+              />
+            </Form.Item>
+          </Col>
           <Col span={12}>
             <Form.Item
               name="dispositivo"
@@ -156,10 +163,10 @@ export const FormCient = () => {
                 },
               ]}
             >
-              <Input
-                onChange={(event) => {
-                  setNumerocli(event.target.value);
+              <Input   onChange={(event) => {
+                  setTelefono_Cliente(event.target.value);
                 }}
+              
                 style={{
                   width: "100%",
                 }}
@@ -186,7 +193,7 @@ export const FormCient = () => {
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
-              name="description"
+              name="descripcion"
               label="Descricion"
               rules={[
                 {
@@ -202,6 +209,8 @@ export const FormCient = () => {
                 rows={4}
                 placeholder="por favor ingresar la descripcion"
               />
+
+              <input type="text" />
             </Form.Item>
           </Col>
         </Row>
@@ -209,6 +218,7 @@ export const FormCient = () => {
           Agregar
         </Button>
       </Form>
+
     </>
   );
 };

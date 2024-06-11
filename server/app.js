@@ -5,6 +5,8 @@ import morgan from "morgan";
 import router from "./db/routes/routes.Ceu.js";
 const app = express()
 
+
+app.use(cors());
 // Conexion a la base de datos
 app.use((req, res, next) => {
   req.db = db;
