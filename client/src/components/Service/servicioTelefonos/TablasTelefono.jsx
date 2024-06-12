@@ -1,44 +1,49 @@
-import React, { useRef, useState } from 'react';
-import { Space, Table, Tag, Form, Input, Select, Button, Dropdown, Tooltip } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, SyncOutlined, DownOutlined ,SearchOutlined} from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
-import { OpcionesServicio } from '../OpcionesServicio';
+import React, { useState, useEffect ,useRef } from "react";
+import {
+  Space,
+  Table,
+  Tag,
+  Form,
+  Input,
+  Select,
+  Button,
+  Dropdown,
+  Tooltip,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ClockCircleOutlined,
+  SyncOutlined,
+  DownOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
+import { OpcionesServicio } from "../OpcionesServicio";
 import Axios from "axios";
 
-
-
-
-
-
-
-
-
 export const TablaTelefonos = () => {
+  const [listasTelefonos, setListaTelefonos] = useState([]);
 
-const data = [
 
-
+  useEffect(() => {
+    getTelefonosLista();
+  }, []);
   
-  {
-    key: '1',
-    Codigo: '01',
-    nombre: 'daniel ortega',
-    dni:'9634468',
-    modelo: 'Samsung a23',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo",
-    precioservite: '20.00',
-    estatud: ['irreparable', 'entregado'],
-    opciontele: <OpcionesServicio/>
-
-  },
-  
-  
-  
-];
+  const getTelefonosLista = () => {
+    Axios.get("http://localhost:3001/producto/", {
+      params: {
+        categoria: "pc nuevo"
+      }
+    }).then((response) => {
+      const listaTelefonosWithKeys = response.data.map((item, index) => {
+        return {...item, key: index };
+      });
+      setListaTelefonos(listaTelefonosWithKeys);
+    });
+  };
 
   const [searchText, setSearchText] = useState('');
-  const [listasTelefonos,setListaTelefonos] = useState([])
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -50,24 +55,8 @@ const data = [
     clearFilters();
     setSearchText('');
   };
-
-
-
-
-
-
-  const getTelefonosLista = () => {
-    Axios.get("http://localhost:3001/producto").then((response) => {
-      setListaTelefonos(response.data);
-  });
-    }
-
-
-
-
-
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters,  }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
         style={{
           padding: 8,
@@ -106,19 +95,7 @@ const data = [
           >
             Limpiar
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Restablecer
-          </Button>
+         
          
         </Space>
       </div>
@@ -152,116 +129,114 @@ const data = [
         text
       ),
   });
-  
+
   const columns = [
+    
     {
-      title: 'Codigo',
-      dataIndex: 'Codigo',
-      ...getColumnSearchProps('Codigo'),
+      key:1,
+      title: "orden de servico",
+      dataIndex: "orde",
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps('orde'),
 
     },
     {
-      title: 'DNI',
-      dataIndex: 'dni',
+      key:7,
+      title: "DNI",
+      dataIndex: "DNI",
+      render: (text) => <a>{text}</a>,
       ...getColumnSearchProps('DNI'),
 
-    },
+    }, 
+
     {
-      title: 'Nombre del cliente',
-      dataIndex: 'nombre',
+      key:2,
+      title: "Nombre",
+      dataIndex: "nombre",
       render: (text) => <a>{text}</a>,
     },
-  
+    {
+      key:9,
+      title: "Fecha de ingreso",
+      dataIndex: "fecha registro",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      key:3,
+      title: "Categoria",
+      dataIndex: "categoria",
+      render: (text) => <a>{text}</a>,
+    },
+
+    {
+      key:4,
+      title: "Tipo de servio",
+      dataIndex: "servicio",
+      render: (text) => <a>{text}</a>,
+    },
    
     {
-      title: 'Modelo del telefono',
-      dataIndex: 'modelo',
+      key:6,
+      title: "Modelo",
+      dataIndex: "dispositivo",
+      render: (text) => <a>{text}</a>,
     },
     
-  
     
-  
-  
+    
     {
-      key: 'estatud',
-      title: 'estatud',
-      dataIndex: 'estatud',
-     
+      key:10,
+      title: "Estatus",
+      dataIndex: "estatus",
+      render: (text) => <a>{text}</a>,
+    },
 
-      render: (_, { estatud }) => (
-        <>
-          {estatud.map((estatud) => {
-            let color = estatud.length > 10 ? 'geekblue' : 'green';
-            if (estatud === 'irreparable') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={estatud}>
-                {estatud.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+    {
+      key:5,
+      title: "Precio",
+      dataIndex: "precio",
+      render: (text) => <a>{text}</a>,
     },
     {
-      title: 'precio',
-      dataIndex: 'precioservite',
+      key:11,
+      title: "Opciones",
+      render: (record)=>{
+        return <OpcionesServicio/>
+      }
     },
-    {
-      title: 'opciones',
-      dataIndex: 'opciontele',
-    },
-   ];
-  
+    // ...
+  ];
 
-  
-  
-  return <div>
-  
-  
-  <Table columns={columns}   
-  expandable={{
-    expandedRowRender: (record) => (
-      <p
-        style={{
-          margin: 2,
+  return (
+    <div>
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p
+              style={{
+                margin: 2,
+              }}
+            >
+              <div>
+                <h2>Descriccion</h2>
+              </div>
+              {record.descripcion}
+              <div>
+                <h2>Numero de telefono</h2>
+              </div>
+              {record.telefono_Cliente}
+            </p>
+          ),
+
+          rowExpandable: (record) => record.name !== "Not Expandable",
         }}
-      > <div><h2>Descriccion</h2></div>
-        {record.descriccion}
-       
-        <div><h2>Numero de telefono</h2></div>
-        {record.numerocliente}
-      </p>
-      
-    ),
-    
-    rowExpandable: (record) => record.name !== 'Not Expandable',
-  }} dataSource={data} />
-
-
-  
-<table class="table-auto">
-
-
-{listasTelefonos.map((val,key)=>{
-    return <tbody>
-    <tr>
-      <td>{val.orde}</td>
-      <td>{val.nombre}</td>
-      <td>{val.DNI}</td>
-      <td>{val.categoria}</td>
-      <td></td>
-
-    </tr>
-  
-  </tbody>
-    
-  })
-  }
-
-  
-</table>
-
-</div>
-}
+        dataSource={listasTelefonos}
+        pagination={{
+          pageSize: 5,
+        }}
+        scroll={{ x: 1300 }}
+      />
+    </div>
+  );
+};

@@ -1,70 +1,48 @@
-import React, { useRef, useState } from 'react';
-import { Space, Table, Tag, Form, Input, Select, Button, Dropdown, Tooltip } from 'antd';
-import { CheckCircleOutlined, ClockCircleOutlined, SyncOutlined, PrinterOutlined, SearchOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
-import { OpcionesReport } from './OpcionesReport';
+import React, { useState, useEffect ,useRef } from "react";
+import {
+  Space,
+  Table,
+  Tag,
+  Form,
+  Input,
+  Select,
+  Button,
+  Dropdown,
+  Tooltip,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ClockCircleOutlined,
+  SyncOutlined,
+  DownOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
+import Axios from "axios";
+import { OpcionesServicio } from "../Service/OpcionesServicio";
 
-const data = [
-
-  {
-    key: '1',
-    ordendeservicio: '01',
-    nombre: 'daniel ortega',
-    dni: '9634468',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo",
-    estadotele: <Tag icon={<ClockCircleOutlined />} color="warning">Presupuestar</Tag>,
-    precioservite: '20.00',
-    estado: ['irreparable', 'entregado'],
-    opciontele: <OpcionesReport />
-
-  },
-  {
-    key: '2',
-    ordendeservicio: '02',
-    dni: '9634468',
-    nombre: 'Jim Green',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo",
-    estadotele: <Tag icon={<CheckCircleOutlined />} color="success">Entregado</Tag>,
-    precioservite: '150.00',
-    estado: ['presupuestado'],
-    opciontele: <OpcionesReport />
+export const TablaReport  = () => {
+  const [listasTelefonos, setListaTelefonos] = useState([]);
 
 
-  },
-  {
-    key: '3',
-    ordendeservicio: '03',
-    dni: '9634468',
+  useEffect(() => {
+    getTelefonosLista();
+  }, []);
+  
+  const getTelefonosLista = () => {
+    Axios.get("http://localhost:3001/producto/", {
+      params: {
+        categoria: "pc nuevo"
+      }
+    }).then((response) => {
+      const listaTelefonosWithKeys = response.data.map((item, index) => {
+        return {...item, key: index };
+      });
+      setListaTelefonos(listaTelefonosWithKeys);
+    });
+  };
 
-    nombre: 'Joe Black',
-    numerocliente: '541151747883',
-    descriccion: "cambio de pin de carga",
-    estadotele: <Tag icon={<CheckCircleOutlined />} color="success">Entregado</Tag>,
-    precioservite: '200.00',
-    estado: ['presupuestal',],
-    opciontele: <OpcionesReport />
-
-
-  },
-  {
-    key: '4',
-    ordendeservicio: '04',
-    dni: '96374468',
-    nombre: 'samuel luna',
-    numerocliente: '541151747883',
-    estadotele: <Tag icon={<SyncOutlined />} color="processing">Reparado</Tag>,
-    precioservite: '30.00',
-    estado: ['reparado', 'entregado'],
-    descriccion: "cambio de microfono",
-    opciontele: <OpcionesReport />
-
-
-
-  },
-];
-export const TablaReport = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -78,7 +56,7 @@ export const TablaReport = () => {
     setSearchText('');
   };
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
         style={{
           padding: 8,
@@ -87,7 +65,7 @@ export const TablaReport = () => {
       >
         <Input
           ref={searchInput}
-          placeholder={`Buscar por orden de servicio`}
+          placeholder={`Buscar por ${dataIndex}`}
           value={selectedKeys[0]}
           onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -117,20 +95,8 @@ export const TablaReport = () => {
           >
             Limpiar
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Restablecer
-          </Button>
-
+         
+         
         </Space>
       </div>
     ),
@@ -165,74 +131,75 @@ export const TablaReport = () => {
   });
 
   const columns = [
+    
     {
-      title: 'Codigo',
-      dataIndex: 'ordendeservicio',
-      ...getColumnSearchProps('ordendeservicio'),
+      key:1,
+      title: "orden de servico",
+      dataIndex: "orde",
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps('orde'),
 
     },
     {
-      title: 'DNI',
-      dataIndex: 'dni',
-      ...getColumnSearchProps('dni'),
+      key:7,
+      title: "DNI",
+      dataIndex: "DNI",
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps('DNI'),
 
+    }, 
+
+   
+  
+   
+
+   
+   
+   
+    
+    
+    
+    {
+      key:10,
+      title: "Estatus",
+      dataIndex: "estatus",
+      render: (text) => <a>{text}</a>,
+    },
+
+    {
+      key:5,
+      title: "Precio",
+      dataIndex: "precio",
+      render: (text) => <a>{text}</a>,
+    },
+
+    {
+      key:9,
+      title: "Fecha de ingreso",
+      dataIndex: "fecha registro",
+      render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Estatud',
-      dataIndex: 'estado',
-      key: 'estado',
-      dataIndex: 'estado',
-      render: (_, { estado }) => (
-        <>
-          {estado.map((estado) => {
-            let color = estado.length > 10 ? 'geekblue' : 'green';
-            if (estado === 'irreparable') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={estado}>
-                {estado.toUpperCase()}
-              </Tag>
-            )
-          })}
-        </>
-      ),
+      key:11,
+      title: "Opciones",
+      render: (record)=>{
+        return <OpcionesServicio/>
+      }
     },
-    {
-      title: 'Precio',
-      dataIndex: 'precioservite',
-    },
-    {
-      title: 'Opciones',
-      dataIndex: 'opciontele',
-    },
+    
+    // ...
   ];
 
-
-
-
-
-
-  return <div>
-
-    <Table columns={columns}
-      expandable={{
-        expandedRowRender: (record) => (
-          <p
-            style={{
-              margin: 2,
-            }}
-          > <div><h2>Descriccion</h2></div>
-            {record.descriccion}
-
-            <div><h2>Numero de telefono</h2></div>
-            {record.numerocliente}
-          </p>
-
-        ),
-
-        rowExpandable: (record) => record.name !== 'Not Expandable',
-      }} dataSource={data} />
-
-  </div>
-}
+  return (
+    <div>
+      <Table
+        columns={columns}
+        
+        dataSource={listasTelefonos}
+        pagination={{
+          pageSize: 5,
+        }}
+      />
+    </div>
+  );
+};

@@ -28,10 +28,8 @@ export const Flobott = () =>  {
         }}
         extra={
           <Space>
-            <Button onClick={onClose}>Cancelar</Button>
-            <Button onClick={onClose} type="primary">
-              Agregar
-            </Button>
+            
+           
           </Space>
         }
       >

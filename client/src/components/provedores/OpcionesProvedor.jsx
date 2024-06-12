@@ -1,6 +1,12 @@
 import React from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
+
+
+
+
+
+
 const onMenuClick = (e) => {
     console.log('click', e);
   };
@@ -22,6 +28,7 @@ const onMenuClick = (e) => {
       ];
 export const OpcionesPro = () => (
     <Dropdown.Button
+    icon={<DownOutlined/>}
     menu={{
       items,
       onClick: onMenuClick,

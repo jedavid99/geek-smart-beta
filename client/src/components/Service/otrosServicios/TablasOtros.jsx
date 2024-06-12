@@ -1,71 +1,48 @@
-import React, { useRef, useState } from 'react';
-import { Space, Table, Tag, Form, Input, Select, Button, Dropdown, Tooltip } from 'antd';
-import { CheckCircleOutlined, CloseCircleOutlined, ClockCircleOutlined, SyncOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
-import { OpcionesServicio } from '../OpcionesServicio';
+import React, { useState, useEffect ,useRef } from "react";
+import {
+  Space,
+  Table,
+  Tag,
+  Form,
+  Input,
+  Select,
+  Button,
+  Dropdown,
+  Tooltip,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ClockCircleOutlined,
+  SyncOutlined,
+  DownOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
+import { OpcionesServicio } from "../OpcionesServicio";
+import Axios from "axios";
 
-
-const data = [
-
-  {
-    key: '1',
-    Codigo: '01',
-    nombre: 'daniel ortega',
-    DNI: '9634468',
-    dispositivo: 'TV',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo",
-    precio: '20.00',
-    estado: ['irreparable', 'entregado'],
-    opciones: <OpcionesServicio />
-
-  },
-  {
-    key: '2',
-    Codigo: '02',
-    DNI: '9634468',
-    nombre: 'Jim Green',
-    dispositivo: 'micro ondas',
-    numerocliente: '541151747883',
-    descriccion: "cambio de modulo",
-    precio: '150.00',
-    estado: ['presupuestado'],
-    opciones: <OpcionesServicio />,
-
-
-  },
-  {
-    key: '3',
-    Codigo: '03',
-    DNI: '9634468',
-
-    nombre: 'Joe Black',
-    dispositivo: 'lavadora',
-    numerocliente: '541151747883',
-    descriccion: "cambio de pin de carga",
-    precio: '200.00',
-    estado: ['presupuestal',],
-    opciones: <OpcionesServicio />,
-
-
-  },
-  {
-    key: '4',
-    Codigo: '04',
-    DNI: '96374468',
-    nombre: 'samuel luna',
-    dispositivo: 'consola',
-    numerocliente: '541151747883',
-    precio: '30.00',
-    estado: ['reparado', 'entregado'],
-    descriccion: "cambio de microfono",
-    opciones: <OpcionesServicio />,
-
-
-
-  },
-];
 export const TablaOtros = () => {
+  const [listasTelefonos, setListaTelefonos] = useState([]);
+
+
+  useEffect(() => {
+    getTelefonosLista();
+  }, []);
+  
+  const getTelefonosLista = () => {
+    Axios.get("http://localhost:3001/producto/", {
+      params: {
+        categoria: "pc nuevo"
+      }
+    }).then((response) => {
+      const listaTelefonosWithKeys = response.data.map((item, index) => {
+        return {...item, key: index };
+      });
+      setListaTelefonos(listaTelefonosWithKeys);
+    });
+  };
+
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -79,7 +56,7 @@ export const TablaOtros = () => {
     setSearchText('');
   };
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, }) => (
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div
         style={{
           padding: 8,
@@ -118,20 +95,8 @@ export const TablaOtros = () => {
           >
             Limpiar
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({
-                closeDropdown: false,
-              });
-              setSearchText(selectedKeys[0]);
-              setSearchedColumn(dataIndex);
-            }}
-          >
-            Restablecer
-          </Button>
-
+         
+         
         </Space>
       </div>
     ),
@@ -166,80 +131,112 @@ export const TablaOtros = () => {
   });
 
   const columns = [
+    
     {
-      title: 'Codigo',
-      dataIndex: 'Codigo',
-      ...getColumnSearchProps('Codigo'),
+      key:1,
+      title: "orden de servico",
+      dataIndex: "orde",
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps('orde'),
 
     },
     {
-      title: 'DNI',
-      dataIndex: 'DNI',
+      key:7,
+      title: "DNI",
+      dataIndex: "DNI",
+      render: (text) => <a>{text}</a>,
       ...getColumnSearchProps('DNI'),
 
+    }, 
+
+    {
+      key:2,
+      title: "Nombre",
+      dataIndex: "nombre",
+      render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Nombre del cliente',
-      dataIndex: 'nombre',
+      key:9,
+      title: "Fecha de ingreso",
+      dataIndex: "fecha registro",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      key:3,
+      title: "Categoria",
+      dataIndex: "categoria",
       render: (text) => <a>{text}</a>,
     },
 
-
     {
-      title: 'Tipo de dispositivo ',
-      dataIndex: 'dispositivo',
+      key:4,
+      title: "Tipo de servio",
+      dataIndex: "servicio",
+      render: (text) => <a>{text}</a>,
+    },
+   
+    {
+      key:6,
+      title: "Modelo",
+      dataIndex: "dispositivo",
+      render: (text) => <a>{text}</a>,
+    },
+    
+    
+    
+    {
+      key:10,
+      title: "Estatus",
+      dataIndex: "estatus",
+      render: (text) => <a>{text}</a>,
     },
 
-
-
-
-
     {
-      title: 'Estatud',
-      dataIndex: 'estado',
-      key: 'estado',
-      dataIndex: 'estado',
-      render: (_, { estado }) => (
-        <>
-          {estado.map((estado) => {
-            let color = estado.length > 10 ? 'geekblue' : 'green';
-            if (estado === 'irreparable') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={estado}>
-                {estado.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+      key:5,
+      title: "Precio",
+      dataIndex: "precio",
+      render: (text) => <a>{text}</a>,
     },
     {
-      title: 'precio',
-      dataIndex: 'precio',
+      key:11,
+      title: "Opciones",
+      render: (record)=>{
+        return <OpcionesServicio/>
+      }
     },
-    {
-      title: 'opciones',
-      dataIndex: 'opciones',
-    },
+    // ...
   ];
-  return <Table columns={columns}
-    expandable={{
-      expandedRowRender: (record) => (
-        <p
-          style={{
-            margin: 2,
-          }}
-        > <div><h2>Descriccion</h2></div>
-          {record.descriccion}
 
-          <div><h2>Numero de telefono</h2></div>
-          {record.numerocliente}
-        </p>
+  return (
+    <div>
+      <Table
+        columns={columns}
+        expandable={{
+          expandedRowRender: (record) => (
+            <p
+              style={{
+                margin: 2,
+              }}
+            >
+              <div>
+                <h2>Descriccion</h2>
+              </div>
+              {record.descripcion}
+              <div>
+                <h2>Numero de telefono</h2>
+              </div>
+              {record.telefono_Cliente}
+            </p>
+          ),
 
-      ),
-
-      rowExpandable: (record) => record.name !== 'Not Expandable',
-    }} dataSource={data} />;
-}
+          rowExpandable: (record) => record.name !== "Not Expandable",
+        }}
+        dataSource={listasTelefonos}
+        pagination={{
+          pageSize: 5,
+        }}
+        scroll={{ x: 1300 }}
+      />
+    </div>
+  );
+};
