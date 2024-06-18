@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal , Checkbox,Row,Col,Tag } from 'antd';
+import {
+  HourglassFilled
+} from '@ant-design/icons';
 
 
 export const ModalEstaudtel = () => {
@@ -19,14 +22,18 @@ export const ModalEstaudtel = () => {
   const handleCancelar = () => {
     setIsModalOpen(false);
   };
+  
 
   return (
     <>
 
-<a href="" onClick={showModal}></a>
-      <a type="primary" onClick={showModal}>
-        Estatud
-      </a>
+<Button
+  icon={<HourglassFilled />}
+  type="primary"
+  style={{ backgroundColor: '#373A40' }}
+  onClick={showModal}
+> Estatus
+</Button>
 
     
       <Modal  open={isModalOpen} onOk={handleOk} onCancel={handleCancelar} cancelText="Cancelar" okText="Guardar">

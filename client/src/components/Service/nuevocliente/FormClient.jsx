@@ -15,6 +15,7 @@ import {
   Select,
   Space,
   FloatButton,
+  notification,
 } from "antd";
 import Axios from "axios";
 const { Option } = Select;
@@ -28,29 +29,47 @@ export const FormCient = () => {
   const [DNI,setDNI] = useState("");
   const [telefono_Cliente, setTelefono_Cliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [estatus, setEstatus] = useState("");
+  const [emei_codigo, setEmei_codigo] = useState("");
 
-  
 
 
   const AgregarCliente = () => {
     Axios.post("http://localhost:3001/producto", {
-    nombre:nombre,
-    categoria:categoria,
-    precio:precio,
-    servicio:servicio,
-    dispositivo:dispositivo,
-    DNI:DNI,
-    telefono_Cliente:telefono_Cliente,
-    descripcion:descripcion,
-}).then(() => {
-    alert("cliente agregado")
-} )
+      nombre: nombre,
+      categoria: categoria,
+      precio: precio,
+      servicio: servicio,
+      dispositivo: dispositivo,
+      DNI: DNI,
+      telefono_Cliente: telefono_Cliente,
+      descripcion: descripcion,
+      estatus: estatus,
+      emei_codigo: emei_codigo
+    }).then(() => {
+      notification.success({
+        message: 'Cliente agregado',
+        description:`El cliente ${nombre} ha sido agregado correctamente.`,
+        duration: 3
+        
+      });
+      LimpoarCampos();
+    }).catch((error) => {
+      notification.error({
+        message: 'Error ',
+        description: 'Ha ocurrido un error al agregar el cliente.',
+        duration: 3
+      });
+    });
+  };
+  
+  const LimpoarCampos = () => {
+    setNombre("");
 
-
-
+  }
     
 
-    }
+    
  
 
   const handleSelectChange = (event) => {
@@ -59,7 +78,11 @@ export const FormCient = () => {
     setCategoria(selectedValue); // Actualiza el estado con el valor seleccionado
   };
   
-
+  const handleSelectEstatus = (event) => {
+    const selectedValue = event.target.value;
+    console.log("Valor seleccionado:", selectedValue);
+    setEstatus(selectedValue); // Actualiza el estado con el valor seleccionado
+  };
   return (
     <>
       <Form layout="vertical" hideRequiredMark>
@@ -67,7 +90,7 @@ export const FormCient = () => {
           <Col span={12}>
           <div className="text-7xl">
              <Form.Item
-              name="nombrecli"
+            
               label="Nombre completo del cliente:"
               rules={[
                 {
@@ -88,7 +111,8 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item name="categoria" label="Categoria:" rules={[]}>
-              <select onChange={handleSelectChange}>
+              <select value="2"onChange={handleSelectChange}>
+              <option  value="1" disabled>selecione una categoria</option>
                 <option value="Telefonos">Telefonos</option>
                 <option value="Pc">Pc</option>
                 <option value="otros">otros</option>
@@ -97,7 +121,6 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="Tipodeservicio"
               label="Tipo de servicio:"
               rules={[
                 {
@@ -116,7 +139,6 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="DNI"
               label="DNI"
               rules={[
                 {
@@ -135,7 +157,6 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="dispositivo"
               label="Tipo de dispositivo"
               rules={[
                 {
@@ -154,7 +175,27 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item
-              name="numerocliente"
+              label="IMEI O CODIGO:"
+              rules={[
+                {
+                  required: true,
+                  message: "Por favor ingresar el IMEI",
+                },
+              ]}
+            >
+              <Input   onChange={(event) => {
+                  setEmei_codigo(event.target.value);
+                }}
+              
+                style={{
+                  width: "100%",
+                }}
+                placeholder=" Ingresar IMEI"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
               label="Numero de telefono:"
               rules={[
                 {
@@ -175,9 +216,8 @@ export const FormCient = () => {
               />
             </Form.Item>
           </Col>
-
           <Col span={12}>
-            <Form.Item name="precio" label="Precio del servicio:" rules={[]}>
+            <Form.Item label="Precio del servicio:" rules={[]}>
               <Input
                 onChange={(event) => {
                   setPrecio(event.target.value);
@@ -189,11 +229,19 @@ export const FormCient = () => {
               />
             </Form.Item>
           </Col>
+          <Col span={12}>
+            <Form.Item  label="Estatus:" rules={[]}>
+            <select onChange={handleSelectEstatus}>
+              <option disabled >selecione una categoria</option>
+                <option value="ingresado">ingresado</option>
+                <option value="presupuestado">presupuestado</option>
+              </select>
+            </Form.Item>
+          </Col>
         </Row>
         <Row gutter={16}>
           <Col span={24}>
             <Form.Item
-              name="descripcion"
               label="Descricion"
               rules={[
                 {
@@ -217,6 +265,7 @@ export const FormCient = () => {
         <Button onClick={AgregarCliente} type="primary">
           Agregar
         </Button>
+        
       </Form>
 
     </>

@@ -9,23 +9,26 @@ import { registroProveedor } from "../proveedor/AgregarNuevoProveedor.js";
 import { editarProveedor } from "../proveedor/EditarProveedor.js";
 import { proveedorEliminar } from "../proveedor/DeleteProvedor.js";
 import * as CtrlistarProveedores from "../proveedor/ListaProveedor.js";
+import * as CtrlistarEmpresa from "../empresa/Empresa.js";
+
 import { Router } from "express";
 
 const router = Router();
 //RUTAS SERVICIO
 router.get("/producto", CtrlistarPorductos.listarProducto);
-router.get("/producto/:orde", CtrlistarPorductos.listarProductoId);
+router.get("/producto/:codigo", CtrlistarPorductos.listarProductoId);
 router.post("/producto", registroProducto);
 router.post("/producto", registroProducto);
-router.patch("/producto/:orde", editarProducto);
-router.delete("/producto/:orde", productoEliminar);
+router.patch("/producto/:codigo", editarProducto);
+router.delete("/producto/:codigo", productoEliminar);
 
 
 //RUTAS EMPRESAS
 router.post("/empresa", registrarEmpresa);
 router.patch("/empresa/:id", editarLogoEmpresa);
 router.patch("/empresa_datos/:id", editarDatosEmpresa);
-
+router.get("/empresa_lista", CtrlistarEmpresa.listarEmpresa);
+router.get("/empresa_lista/:id", CtrlistarEmpresa.listarEmpresaId);
 
 //RUTAS PROVEEDOR
 router.post("/proveedor", registroProveedor);

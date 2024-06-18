@@ -1,12 +1,12 @@
 import { db } from "../../db.js";
 
 export const editarProducto = async (req, res) => {
-  const { orde } = req.params;
+  const { codigo } = req.params;
   const { nombre, categoria, servicio, dispositivo, precio } = req.body;
   try {
     const [result] = await db.query(
-      "UPDATE servicio SET nombre = IFNULL(?, nombre), categoria = IFNULL(?, categoria), servicio = IFNULL(?, servicio), dispositivo = IFNULL(?, dispositivo), precio = IFNULL(?, precio) WHERE orde = ?",
-      [nombre, categoria, servicio, dispositivo, precio, orde]
+      "UPDATE servicio SET nombre = IFNULL(?, nombre), categoria = IFNULL(?, categoria), servicio = IFNULL(?, servicio), dispositivo = IFNULL(?, dispositivo), precio = IFNULL(?, precio) WHERE codigo = ?",
+      [nombre, categoria, servicio, dispositivo, precio, codigo]
     );
 
     if (result.affectedRows === 0) {
@@ -15,8 +15,8 @@ export const editarProducto = async (req, res) => {
       });
     }
 
-    const [rows] = await db.query("SELECT * FROM servicio WHERE orde = ?", [
-      orde,
+    const [rows] = await db.query("SELECT * FROM servicio WHERE codigo = ?", [
+      codigo,
     ]);
     res.json(rows[0]);
   } catch (error) {

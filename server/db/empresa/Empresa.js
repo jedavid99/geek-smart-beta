@@ -1,8 +1,8 @@
 import { db } from "../../db.js";
 
-export const listarProducto = async (req, res) => {
+export const listarEmpresa = async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM servicio");
+    const [rows] = await db.query("SELECT * FROM empresas");
     res.json(rows);
   } catch (error) {
     return res.status(500).json({
@@ -11,11 +11,11 @@ export const listarProducto = async (req, res) => {
   }
 };
 
-export const listarProductoId = async (req, res) => {
-  const { codigo } = req.params;
+export const listarEmpresaId = async (req, res) => {
+  const { id } = req.params;
   try {
-    const [rows] = await db.query("SELECT * FROM servicio WHERE codigo = ?", [
-      codigo,
+    const [rows] = await db.query("SELECT * FROM empresas WHERE id = ?", [
+      id,
     ]);
     if (rows.length === 0) {
       return res.status(404).json({

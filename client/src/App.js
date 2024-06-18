@@ -11,6 +11,7 @@ import { Otros } from './paginas/Otros';
 import { Reportes } from './paginas/Reporte';
 import { Empresa } from './paginas/Empresa';
 import { UsuariosConfig } from './paginas/Usuarios';
+import { EditarC } from './paginas/EditCliente';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
           <Route exact path="/reportes" element={<Reportes/>}/>
           <Route exact path="/empresa" element={<Empresa/>}/>
           <Route exact path="/usuarios" element={<UsuariosConfig/>}/>
-
+          <Route exact path="/editar_datos" element={<EditarC/>}/>
 
 
 

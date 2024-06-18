@@ -135,10 +135,11 @@ export const TablaOtros = () => {
     {
       key:1,
       title: "orden de servico",
-      dataIndex: "orde",
+      dataIndex: "codigo",
       render: (text) => <a>{text}</a>,
-      ...getColumnSearchProps('orde'),
-
+      ...getColumnSearchProps('codigo'),
+      defaultSortCodigo: "descend",
+      sorter: (a, b) => b.codigo
     },
     {
       key:7,

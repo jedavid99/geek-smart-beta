@@ -1,43 +1,61 @@
-import React from 'react';
-import { Descriptions ,Card} from 'antd';
-import { MapComponent } from './Maps';
-import { EditarLogo } from './EditarLogo';
-const items = [
+import React, { useState, useEffect } from "react";
+import { Descriptions } from "antd";
+
+import Axios from "axios";
+import { MapComponent } from "./Maps";
+
+export const DatosEmpresa = () => {
+  const [listasProveedores, setListaProveedores] = useState([]);
+
+  useEffect(() => {
+    getProveedoresLista();
+  }, []);
+
+  const getProveedoresLista = () => {
+    Axios.get("http://localhost:3001/empresa_lista").then((response) => {
+      const listasProveedorWithKeys = response.data.map((item, index) => {
+        return {...item, key: index };
+      });
+      setListaProveedores(listasProveedorWithKeys);
+    });
+  };
+
+  const items = listasProveedores.flatMap((item, index) => [
     {
-        key: '1',
-        label: 'Nombre de la empresa',
-        children: 'GEEK SMART',
+      key: `nombre-de-la-empresa-${index}`,
+      label: "Nombre de la empresa",
+      children: item.nombre_de_empresa,
     },
     {
-        key: '6',
-        label: 'CUIT',
-        children: '2069476689',
+      key: `cuit-${index}`,
+      label: "CUIT",
+      children: item.CUIT_CUIL,
     },
     {
-        key: '2',
-        label: 'Telefono',
-        children: '1151747883',
+      key: `direccion-${index}`,
+      label: "Direccion",
+      children: item.Dirección,
     },
     {
-        key: '3',
-        label: 'Dueño',
-        children: 'Juan limonta',
+      key: `tipo-de-servicio-${index}`,
+      label: "Tipo de servicio",
+      children: item.servicio_de_la_empresa,
     },
     {
-        key: '4',
-        label: 'Tipo de negocio',
-        children: 'Servicio tecnico',
+      key: `dueño${index}`,
+      label: "Dueño",
+      children: item.dueño_de_la_empresa,
     },
     {
-        key: '5',
-        label: 'Dirrecion',
-        children: 'Cam. de la Loma 5235, B1644CIG Victoria, Provincia de Buenos Aires',
+      key: `telefono-${index}`,
+      label: "Telefono",
+      children: item.telefono_de_la_empresa,
     },
-];
-export const DatosEmpresa = () => 
-<>
-<Card>
-<Descriptions title="Datos del negocio" items={items} />
-<MapComponent></MapComponent>
-</Card>
-</>
+  ]);
+  return (
+    <div>
+      <Descriptions title="Datos del negocio" items={items} />
+      <MapComponent></MapComponent>
+    </div>
+  );
+};
