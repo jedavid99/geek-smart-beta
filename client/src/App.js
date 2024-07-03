@@ -6,30 +6,35 @@ import { Login } from './paginas/Login'
 import { Proveedores } from './paginas/Proveedores';
 import { Home } from './paginas/Home';
 import { Telefono } from './paginas/Telefono';
-import { PC } from './paginas/Pc';
-import { Otros } from './paginas/Otros';
+
 import { Reportes } from './paginas/Reporte';
 import { Empresa } from './paginas/Empresa';
 import { UsuariosConfig } from './paginas/Usuarios';
-import { EditarC } from './paginas/EditCliente';
+import { PdfOrden } from './components/Report/OrdenDeSerivicioPdf';
+import { TodoLosEquiposPDF } from './components/Report/ReporteTodosLosEquipos';
+import { EquiposReparadosPDF } from './components/Report/ReporteReparados';
+import { GarantiaPDF } from './components/Report/ReporteGarantia';
 
 
 function App() {
   return (
-    <div className="">
+    <div>
       
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login/>}/>
           <Route exact path="/proveedores" element={<Proveedores/>}/>
           <Route exact path="/home" element={<Home/>}/>
-          <Route exact path="/telefonos" element={<Telefono/>}/>
-          <Route exact path="/pc" element={<PC/>}/>
-          <Route exact path="/otros" element={<Otros/>}/>
+          <Route exact path="/Clientes" element={<Telefono/>}/>
+          {/* <Route exact path="/pc" element={<PC/>}/> */}
+          {/* <Route exact path="/otros" element={<Otros/>}/> */}
           <Route exact path="/reportes" element={<Reportes/>}/>
           <Route exact path="/empresa" element={<Empresa/>}/>
           <Route exact path="/usuarios" element={<UsuariosConfig/>}/>
-          <Route exact path="/editar_datos" element={<EditarC/>}/>
+          <Route exact path="/orden_de_servicio.pdf" element={<PdfOrden/>}/>
+          <Route exact path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF/>}/>
+          <Route exact path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF/>}/>
+          <Route exact path="/Garantias.pdf" element={<GarantiaPDF/>}/>
 
 
 

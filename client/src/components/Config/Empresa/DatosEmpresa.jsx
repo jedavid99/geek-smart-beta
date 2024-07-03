@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Descriptions } from "antd";
-
+import { Card, Descriptions } from "antd";
 import Axios from "axios";
 import { MapComponent } from "./Maps";
+import { API_URL } from "../../../host";
 
 export const DatosEmpresa = () => {
   const [listasProveedores, setListaProveedores] = useState([]);
@@ -12,9 +12,9 @@ export const DatosEmpresa = () => {
   }, []);
 
   const getProveedoresLista = () => {
-    Axios.get("http://localhost:3001/empresa_lista").then((response) => {
+    Axios.get(`${API_URL}/empresa_lista`).then((response) => {
       const listasProveedorWithKeys = response.data.map((item, index) => {
-        return {...item, key: index };
+        return { ...item, key: index };
       });
       setListaProveedores(listasProveedorWithKeys);
     });
@@ -54,8 +54,18 @@ export const DatosEmpresa = () => {
   ]);
   return (
     <div>
-      <Descriptions title="Datos del negocio" items={items} />
-      <MapComponent></MapComponent>
+      <Card>
+        <Descriptions
+          className="fon"
+          title={
+            <span className="flex justify-center text-center">
+              Datos del negocio
+            </span>
+          }
+          items={items}
+        />{" "}
+        <MapComponent></MapComponent>
+      </Card>
     </div>
   );
 };

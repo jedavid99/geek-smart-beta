@@ -1,19 +1,39 @@
-import React, { useRef, useState } from 'react';
-import { Space, Table, Tag, Form, Input, Select, Button, Dropdown, Tooltip } from 'antd';
-import { CheckCircleOutlined,  ClockCircleOutlined, SyncOutlined, PrinterOutlined ,SearchOutlined} from '@ant-design/icons';
-import Highlighter from 'react-highlight-words';
-import { OpcionesReport } from './OpcionesReport';
+import React from "react";
+import {Tooltip,FloatButton} from "antd";
+import { PrinterOutlined} from "@ant-design/icons";
 
-  
-
-  
-export const BotonImprimir= () => {
-  
-  return ( <div>
-  
-  <Button type="primary"><PrinterOutlined />Imprimir Reporte</Button><br />
-
-
-</div>
- )
-}
+export const BotonImprimir = () => {
+  return (
+    <>
+      <FloatButton.Group
+        className="float-btn sm:center-btn"
+        icon={<PrinterOutlined />}
+        trigger="click"
+        type="primary"
+        style={{ right: 24 }}
+      >
+        <Tooltip placement="leftBottom" title="Ingresados" color="blue">
+          <FloatButton
+            icon={<PrinterOutlined />}
+            href="/Todos_Los_Equipos.pdf"
+            type="primary"
+          />
+        </Tooltip>
+        <Tooltip placement="leftBottom" title="Reparados" color="blue">
+          <FloatButton
+            icon={<PrinterOutlined />}
+            href="Equipos_Reparados.pdf"
+            type="primary"
+          />
+        </Tooltip>
+        <Tooltip placement="leftBottom" title="Garantia" color="blue">
+          <FloatButton
+            icon={<PrinterOutlined />}
+            href="Garantias.pdf"
+            type="primary"
+          />
+        </Tooltip>
+      </FloatButton.Group>
+    </>
+  );
+};

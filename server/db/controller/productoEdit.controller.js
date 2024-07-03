@@ -2,11 +2,11 @@ import { db } from "../../db.js";
 
 export const editarProducto = async (req, res) => {
   const { codigo } = req.params;
-  const { nombre, categoria, servicio, dispositivo, precio } = req.body;
+  const { DNI,nombre, categoria, servicio, dispositivo, precio,telefono_Cliente,descripcion,estatus ,emei_codigo} = req.body;
   try {
     const [result] = await db.query(
-      "UPDATE servicio SET nombre = IFNULL(?, nombre), categoria = IFNULL(?, categoria), servicio = IFNULL(?, servicio), dispositivo = IFNULL(?, dispositivo), precio = IFNULL(?, precio) WHERE codigo = ?",
-      [nombre, categoria, servicio, dispositivo, precio, codigo]
+      "UPDATE servicio SET DNI = IFNULL(?, DNI), nombre = IFNULL(?, nombre), categoria = IFNULL(?, categoria), servicio = IFNULL(?, servicio), dispositivo = IFNULL(?, dispositivo), precio = IFNULL(?, precio),telefono_Cliente = IFNULL(?, telefono_Cliente),descripcion = IFNULL(?, descripcion), estatus = IFNULL(?, estatus), emei_codigo = IFNULL(?, emei_codigo)  WHERE codigo = ?",
+      [DNI,nombre, categoria, servicio, dispositivo, precio, telefono_Cliente,descripcion,estatus,emei_codigo, codigo]
     );
 
     if (result.affectedRows === 0) {

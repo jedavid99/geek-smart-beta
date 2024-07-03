@@ -1,39 +1,40 @@
-import React from 'react';
-import { DownOutlined } from '@ant-design/icons';
-import { Dropdown, Space } from 'antd';
+import React from "react";
+import { DeleteFilled } from "@ant-design/icons";
+import { Button, notification } from "antd";
+import Axios from "axios";
+import { API_URL } from "../../host";
 
-
-
-
-
-
-const onMenuClick = (e) => {
-    console.log('click', e);
+export const OpcionesPro = ({ id }) => {
+  const eliminarProvedor = async (id) => {
+    try {
+      const response = await Axios.delete(`${API_URL}/proveedor/${id}`);
+      if (response.status === 200) {
+        notification.info({
+          message: "Proveedor eliminado correctamente",
+          duration: 3,
+          placement: "top",
+        });
+      } else {
+        notification.error({
+          message: "ocurrió un error al eliminar el Proveedor",
+          duration: 3,
+        });
+      }
+    } catch (error) {
+      console.error("Error al eliminar el Proveedor:", error);
+    }
   };
 
+  const handleEliminarProvedor = () => eliminarProvedor(id);
 
-    const items = [
-  
-        {
-          key: '3',
-          label: 'Editar',
-      
-        },
-        {
-          key: '2',
-          label: 'Eliminar',
-      
-        },
-      
-      ];
-export const OpcionesPro = () => (
-    <Dropdown.Button
-    icon={<DownOutlined/>}
-    menu={{
-      items,
-      onClick: onMenuClick,
-    }}
-  >
-    opciones
-  </Dropdown.Button>
-)
+  return (
+    <Button
+      icon={<DeleteFilled />}
+      style={{ backgroundColor: "red", color: "white" }}
+      className="mx-1"
+      onClick={handleEliminarProvedor}
+    >
+      Eliminar
+    </Button>
+  );
+};

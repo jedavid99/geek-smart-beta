@@ -1,26 +1,68 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Button, Form, Input, InputNumber, Popconfirm, Space, Table, Typography } from 'antd';
-import { SearchOutlined, CheckCircleOutlined,CloseCircleOutlined ,PrinterFilled ,EditFilled } from "@ant-design/icons";
-import Highlighter from "react-highlight-words";
-import { OpcionesServicio } from "../OpcionesServicio";
-import { PdfOrden } from '../../Report/ReportPdf';
-
-
-
-import Axios  from 'axios';
-import { ModalEstaudtel } from '../../modal/ModalEstatud';
-
-
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Select,
+  Table,
+  Tag,
+} from "antd";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  PrinterFilled,
+  EditFilled,
+  ClockCircleOutlined,
+  DollarOutlined,
+  CarryOutOutlined,
+  MehFilled,
+  ToolFilled,
+  FireFilled,
+  SafetyCertificateFilled,
+  WarningFilled,
+  UndoOutlined,
+} from "@ant-design/icons";
+import Axios from "axios";
+import useSearch from "../SeachTabla";
+import { API_URL } from "../../../host";
 const originData = [];
- {
+{
   originData.push({
     nombre: "",
-    
+    estatus: "",
+    DNI: "",
   });
-
-  
-} 
-
+}
+const options = [
+  { value: "Presupuestar", label: "Presupuestar" },
+  { value: "Presupuestado", label: "Presupuestado" },
+  { value: "Reparado", label: "Reparado" },
+  { value: "Inrreparable", label: "Inrreparable" },
+  { value: "Entregado", label: "Entregado" },
+  { value: "Entregado Inrreparable", label: "Entregado Inrreparable" },
+  { value: "Garantia", label: "Garantia" },
+];
+const tagRender = (props) => {
+  const { label, value, color, closable, onClose } = props;
+  const onPreventMouseDown = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  return (
+    <Tag
+      color={color}
+      onMouseDown={onPreventMouseDown}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginInlineEnd: 4 }}
+    >
+      {" "}
+      {label}
+    </Tag>
+  );
+};
 const EditableCell = ({
   editing,
   dataIndex,
@@ -31,35 +73,61 @@ const EditableCell = ({
   children,
   ...restProps
 }) => {
-  const inputNode = inputType === 'text' ? <InputNumber /> : <Input />;
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{
-            margin: 0,
-          }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
+  if (dataIndex === "estatus") {
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item
+            name={dataIndex}
+            style={{ margin: 0 }}
+            rules={[
+              {
+                required: true,
+                message: `Por favor seleccione el ${title}!`,
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              maxTagCount={4}
+              tagRender={tagRender}
+              style={{ width: "100%" }}
+              options={options}
+            />
+          </Form.Item>
+        ) : (
+          children
+        )}
+      </td>
+    );
+  } else {
+    const inputNode = inputType === "text" ? <InputNumber /> : <Input />;
+    return (
+      <td {...restProps}>
+        {editing ? (
+          <Form.Item
+            name={dataIndex}
+            style={{ margin: 0 }}
+            rules={[
+              { required: true, message: `Por favor ingrese el ${title}!` },
+            ]}
+          >
+            {inputNode}
+          </Form.Item>
+        ) : (
+          children
+        )}
+      </td>
+    );
+  }
 };
 export const TablaTelefonos = () => {
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("http://localhost:3001/producto/");
+        const response = await Axios.get(`${API_URL}/producto`);
         const listaTelefonosWithKeys = response.data.map((item, index) => {
           return { ...item, key: index };
         });
@@ -68,299 +136,253 @@ export const TablaTelefonos = () => {
         console.error("Error fetching data: ", error);
       }
     };
-  
-    fetchData();
-  }, []);
+    fetchData(); // Run fetchData when the component mounts or refresh changes
+  }, [refresh]); // Run fetchData when refresh changes
+
+  const handleReload = () => {
+    setRefresh(true); // Update refresh state to trigger useEffect
+    setLoading(true);
+    clearTimeout(loadingTimeout);
+    setTimeout(() => {
+      setRefresh(false); // Reset refresh state
+      setLoading(false);
+    }, 1000);
+  };
+
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState('');
+  const [editingKey, setEditingKey] = useState("");
   const isEditing = (record) => record.codigo === editingKey;
   const edit = (record) => {
-    form.setFieldsValue({
-      nombre: '',
-     
-      ...record,
-    });
+    form.setFieldsValue({ nombre: "", estatus: "", DNI: "", ...record });
     setEditingKey(record.codigo);
   };
   const cancel = () => {
-    setEditingKey('');
+    setEditingKey("");
   };
   const save = async (codigo) => {
     try {
       const row = await form.validateFields();
       const newData = [...data];
-      const index = newData.findIndex((item) => codigo === item.codigo);
+      const index = newData.findIndex((item) => item.codigo === codigo);
+
       if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey('');
-  
-        // Send a request to the server to update the record
-        Axios.patch(`http://localhost:3001/producto/${codigo}`, row)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+        newData[index] = { ...newData[index], ...row };
       } else {
         newData.push(row);
-        setData(newData);
-        setEditingKey('');
       }
+      setData(newData);
+      setEditingKey("");
+
+      await Axios.patch(`${API_URL}/producto/${codigo}`, row);
     } catch (errInfo) {
-      console.log('Validate Failed:', errInfo);
+      console.log("Validate Failed:", errInfo);
     }
   };
 
-  const [searchText, setSearchText] = useState("");
-  const [searchedColumn, setSearchedColumn] = useState("");
-  const searchInput = useRef(null);
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-  const handleReset = (clearFilters) => {
-    clearFilters();
-    setSearchText("");
-  };
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <Input
-          ref={searchInput}
-          placeholder={`Buscar por ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Buscar
-          </Button>
-          <Button
-            onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Limpiar
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1677ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    render: (text) =>
-      searchedColumn === dataIndex ? (
-        <Highlighter
-          highlightStyle={{
-            backgroundColor: "#ffc069",
-            padding: 0,
-          }}
-          searchWords={[searchText]}
-          autoEscape
-          textToHighlight={text ? text.toString() : ""}
-        />
-      ) : (
-        text
-      ),
-  });
-
- 
+  const [loading, setLoading] = useState(false);
+  const loadingTimeout = null;
+  const getColumnSearchProps = useSearch();
 
   const columns = [
     {
-      key:1,
-      title: 'codigo',
-      dataIndex: 'codigo',
-      width: '5%',
-      ...getColumnSearchProps("codigo"),
-
+      key: "codigo",
+      title: "codigo",
+      dataIndex: "codigo",
+      width: "5%",
+      ...getColumnSearchProps("codigo"), //
     },
-   
     {
-      key: 2,
+      key: "DNI",
       title: "DNI",
       dataIndex: "DNI",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("DNI"),
-
-
+      ...getColumnSearchProps("DNI"), //
     },
-
     {
-      key: 3,
+      key: "nombre",
       title: "Nombre",
       dataIndex: "nombre",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("nombre"),
-
-
+      ...getColumnSearchProps("nombre"), //
     },
-
     {
-      key: 4,
+      key: "telefono_Cliente",
       title: "Numero de telefono",
       dataIndex: "telefono_Cliente",
       render: (text) => <a>{text}</a>,
       editable: true,
-
     },
-    
     {
-      key: 5,
+      key: "descripcion",
       title: "descripcion",
       dataIndex: "descripcion",
       render: (text) => <a>{text}</a>,
       editable: true,
-
     },
-
     {
-      key: 6,
+      key: "servicio",
       title: "Tipo de servio",
       dataIndex: "servicio",
       render: (text) => <a>{text}</a>,
       editable: true,
-      width: '50%',
-
-
+      width: "50%",
     },
-
     {
-      key: 7,
+      key: "dispositivo",
       title: "Modelo",
       dataIndex: "dispositivo",
       render: (text) => <a>{text}</a>,
       editable: true,
-
     },
     {
-      key: 8,
+      key: "emei_codigo",
       title: "EMEI",
       dataIndex: "emei_codigo",
       render: (text) => <a>{text}</a>,
       editable: true,
-
     },
-
     {
-      key: 9,
+      key: "estatus",
       title: "Estatus",
       dataIndex: "estatus",
-      render: (text) => <a>{text}</a>,
+      render: (text) => {
+        const getStatusColor = (status) => {
+          switch (status) {
+            case "Presupuestar":
+              return "#006769";
+            case "Ingresado":
+              return "#402E7A";
+            case "Presupuestado":
+              return "#FAA300";
+            case "Reparado":
+              return "#1679AB";
+            case "Inrreparable":
+              return "#FF0000";
+            case "Entregado":
+              return "#06D001";
+            case "Entregado Inrreparable":
+              return "#C40C0C";
+            case "Garantia":
+              return "#686D76";
+            default:
+              return "gray";
+          }
+        };
+        const getIcon = (status) => {
+          switch (status) {
+            case "Presupuestar":
+              return <ClockCircleOutlined />;
+            case "Ingresado":
+              return <CarryOutOutlined />;
+            case "Presupuestado":
+              return <DollarOutlined />;
+            case "Entregado Inrreparable":
+              return <MehFilled />;
+            case "Reparado":
+              return <ToolFilled />;
+            case "Inrreparable":
+              return <FireFilled />;
+            case "Entregado":
+              return <SafetyCertificateFilled />;
+            case "Garantia":
+              return <WarningFilled />;
+          }
+        };
+        return text ? (
+          Array.isArray(text) ? (
+            text.map((status) => (
+              <Tag key={status} color={getStatusColor(status)}>
+                {getIcon(status)} {status}
+              </Tag>
+            ))
+          ) : (
+            <Tag color={getStatusColor(text)}>
+              {getIcon(text)} {text}
+            </Tag>
+          )
+        ) : (
+          <Tag color="#006769" icon={<CarryOutOutlined />}>
+            Ingresado
+          </Tag>
+        );
+      },
+      editable: true,
     },
-
     {
-      key: 10,
+      key: "precio",
       title: "Precio",
       dataIndex: "precio",
       render: (text) => <a>{text}</a>,
       editable: true,
-
     },
-
     {
-      key: 11,
+      key: "fecha_registro",
       title: "Fecha de ingreso",
-      dataIndex: "fecha registro",
-      render: (text) => <a>{text}</a>,
+      dataIndex: "fecha_registro",
+      render: (text) => <a>{new Date(text).toLocaleDateString()}</a>,
     },
     {
-      width: '100%',
-      title: 'Opciones',
-      dataIndex: 'operation',
+      key: "Opciones",
+      width: "100%",
+      title: "Opciones",
+      dataIndex: "operation",
       render: (_, record) => {
         const editable = isEditing(record);
         return editable ? (
-          <span className='flex flex-row'> 
+          <span className="flex flex-row">
             <Button
-            icon={<CheckCircleOutlined />}
+              icon={<CheckCircleOutlined />}
               onClick={() => save(record.codigo)}
-              style={{
-                marginRight: 8,
-                
-                
-              }}
+              style={{ marginRight: 8 }}
             >
               Guardad
             </Button>
-            <Popconfirm  description="si lo desea selecione SI, si no lo desea selecione NO " okText="Si" cancelText="No"  title="¿Estás seguro de salir de esta tarea?" onConfirm={cancel}>
-                <Button  className='mx-4' type='dashed ' icon={<CloseCircleOutlined/>}  >Cancelar </Button>
+            <Popconfirm
+              description="si lo desea selecione SI, si no lo desea selecione NO "
+              okText="Si"
+              cancelText="No"
+              title="¿Estás seguro de salir de esta tarea?"
+              onConfirm={cancel}
+            >
+              <Button
+                className="mx-4"
+                type="dashed "
+                icon={<CloseCircleOutlined />}
+              >
+                Cancelar
+              </Button>
             </Popconfirm>
-            <ModalEstaudtel  onClick={() => save(record.codigo)}  />
           </span>
         ) : (
           <>
-          <div className='flex flex-row ms-0	'>
-            <Button className='mx-7' type='primary' icon={<EditFilled />}
-              codigo={record.codigo}
-              disabled={editingKey !== ''}
-              onClick={() => edit(record)}
-            >
-              Editar
-            </Button>
-           
-            <Button type="primary"
-          style={{ backgroundColor: '#102C57' }}
-          icon={<PrinterFilled />}
-        codigo={record.codigo}
-         disabled={editingKey!== ''}
-         onClick={() => PdfOrden(record)}
-         >
-        Imprimir
-          </Button>
-          </div>
+            <div className="flex flex-row ms-0	">
+              <Button
+                className="mx-7"
+                type="primary"
+                icon={<EditFilled />}
+                codigo={record.codigo}
+                disabled={editingKey !== ""}
+                onClick={() => edit(record)}
+              >
+                Editar
+              </Button>
+              <Button
+                href={`/orden_de_servicio.pdf?codigo=${record.codigo}`}
+                type="primary"
+                style={{ backgroundColor: "#102C57" }}
+                icon={<PrinterFilled />}
+                disabled={editingKey !== ""}
+              >
+                Imprimir
+              </Button>
+            </div>
           </>
         );
       },
-    }
+    },
   ];
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
@@ -370,7 +392,7 @@ export const TablaTelefonos = () => {
       ...col,
       onCell: (record) => ({
         record,
-        inputType: col.dataIndex ,
+        inputType: col.dataIndex,
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -378,22 +400,31 @@ export const TablaTelefonos = () => {
     };
   });
   return (
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          pageSize: 5,
-        }}
-        scroll={{ x: 1300 }}
-      />
-    </Form>
+    <>
+      <Button
+        className="mx-7   mb-4"
+        icon={<UndoOutlined spin={loading} />}
+        type="primary"
+        shape="circle"
+        onClick={handleReload}
+      ></Button>
+
+      <Form form={form} component={false}>
+        <div>
+          <Table
+            components={{ body: { cell: EditableCell } }}
+            bordered
+            dataSource={data.map((item, index) => ({
+              ...item,
+              key: `row-${index}`, // Use a unique key for each row
+            }))}
+            columns={mergedColumns}
+            rowClassName="editable-row"
+            pagination={{ pageSize: 5 }}
+            scroll={{ x: 1300 }}
+          />
+        </div>
+      </Form>
+    </>
   );
 };

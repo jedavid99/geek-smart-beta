@@ -3,7 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.body{
 
+background-color: #f5f5f5;
+ 
+
+}
 .App {
   text-align: center;
 }
@@ -43,7 +48,100 @@
   }
 }
 
+.menu {
+  background: #023859;
+  padding: 1rem;
+}
 
+.menu-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bt-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-list.open {
+  display: block;
+}
+
+.menu-list li {
+  margin-bottom: 1rem;
+}
+
+.menu-list a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu-list a:hover {
+  background: #E6344A;
+}
+
+.submenu {
+  position: relative;
+}
+
+.submenu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.submenu-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #023859;
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+.submenu-list li {
+  margin-bottom: 1rem;
+}
+
+.submenu-list a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.submenu-list a:hover {
+  background: #E6344A;
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 768px) {
+  .menu-list {
+    flex-direction: row;
+  }
+  .menu-list li {
+    margin-right: 2rem;
+  }
+  .submenu-list {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+}
 .form-login{
 
 	position: absolute;
@@ -103,7 +201,7 @@ border-radius: 10px;
   border: none;
   outline: none;
   padding: 5px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .send-button {
@@ -120,4 +218,94 @@ border-radius: 10px;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+.float-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.sm\:center-btn {
+  @media (max-width: 576px) { /* adjust the breakpoint as needed */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.tooltip {
+  @media (max-width: 576px) {
+    .ant-tooltip-inner {
+      display: none;
+    }
+  }
+}
+/* Hide the NavLink element on desktop screens */
+.nav-link-mobile {
+  display: none;
+}
+
+/* Show the NavLink element on mobile screens */
+@media only screen and (max-width: 768px) {
+ .nav-link-mobile {
+    display: block;
+  }
+}
+.icon {
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), color 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hidden-on-desktop {
+  display: none;
+}
+
+/* Mostrar solo en pantallas pequeñas (mobiles) */
+@media (max-width: 767.98px) {
+  .hidden-on-desktop {
+    display: block;
+  }
+}
+
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #e8e8e8;
+  background-color: #212121;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: #e8e8e8;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: #e8e8e8;
+}
+
+.custum-file-upload input {
+  display: none;
 }
