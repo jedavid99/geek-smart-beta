@@ -60,7 +60,6 @@ export const TodoLosEquiposPDF = () => {
           DNI: Reparados.DNI,
           telefono_Cliente: Reparados.telefono_Cliente,
           estatus: Reparados.estatus,
-          estatus: Reparados.estatus,
           EMEI: Reparados.emei_codigo,
           fechaIngreso: Reparados.fecha_registro,
         }))

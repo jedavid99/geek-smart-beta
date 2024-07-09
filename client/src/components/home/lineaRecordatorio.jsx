@@ -57,13 +57,8 @@ const getItems = (panelStyle) => [
   },
 ];
 export const LineaRecordatorio = () => {
-  const { token } = theme.useToken();
-  const panelStyle = {
-    marginBottom: 10,
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: "none",
-  };
+
+ 
   return (
     <Tooltip placement="top" title="tareas pendite" color="blue">
       <span>

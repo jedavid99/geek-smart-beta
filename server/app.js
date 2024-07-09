@@ -27,7 +27,7 @@ app.use((req, res) => {
 // endPoint
 app.use(
   cors({
-    origin: ["http://192.168.174.88:3000"],
+    origin: ["http:/localhost:3000"],
     methods: ["POST"],
   })
 );

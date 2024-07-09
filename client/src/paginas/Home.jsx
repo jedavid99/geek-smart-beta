@@ -8,6 +8,8 @@ import { BarChartMes } from "../components/home/barcharMes";
 import { DashboardFilled } from "@ant-design/icons";
 
 export const Home = () => {
+
+  
   return (
     <LayoutPrincipal>
       <Card>

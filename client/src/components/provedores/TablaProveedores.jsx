@@ -28,7 +28,6 @@ const originData = [];
 {
   originData.push({
     nombre: "",
-    estatus: "",
     DNI: "",
   });
 }
@@ -42,7 +41,7 @@ const options = [
   { value: "Garantia", label: "Garantia" },
 ];
 const tagRender = (props) => {
-  const { label, value, color, closable, onClose } = props;
+  const { label, color, closable, onClose } = props;
   const onPreventMouseDown = (event) => {
     event.preventDefault();
     event.stopPropagation();

@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Logo from "../assets/img/geeksmart.jpg";
 import {
   SettingFilled,
@@ -12,9 +12,22 @@ import {
   FilePdfFilled,
   MobileFilled,
 } from "@ant-design/icons";
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 
 export const MenuPage = () => {
+
+const navigate = useNavigate();
+
+const logout = () => {
+  localStorage.removeItem('token');
+  navigate('/', { replace: true });
+}
+
+
+
+
+
+
   return (
     <>
       <div className="flex flex-shrink-0 p-4 px-4 bg-indigo-600">
@@ -27,7 +40,7 @@ export const MenuPage = () => {
               ></img>
             </div>
             <div className="ml-1">
-              <p className="text-sm font-medium text-white">GEEK SMART</p>
+            
             </div>
           </div>
         </a>
@@ -83,10 +96,10 @@ export const MenuPage = () => {
             ],
           },
           {
-            label: <NavLink to="/">Cerrar seccion</NavLink>,
+            label: <button onClick={logout}>Cerrar sesión</button>,
             icon: <PoweroffOutlined />,
-            key: 11,
-          },
+            key: 11
+          }
         ]}
       ></Menu>
     </>
