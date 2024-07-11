@@ -3,12 +3,10 @@ import { db } from "../../db.js";
 export const proveedorEliminar = async (req, res) => {
   const { id } = req.params;
   try {
-    const [rows] = await db.query("DELETE FROM proveedor WHERE id = ?", [
-      id,
-    ]);
-    if (rows.affectedRows === 0) {
+    const result = await db.query("DELETE FROM proveedor WHERE id = $1", [id]);
+    if (result.rowCount === 0) {
       return res.status(404).json({
-        message: "el proveedor  no existe",
+        message: "el proveedor no existe",
       });
     }
     res.json({

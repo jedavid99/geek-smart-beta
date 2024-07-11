@@ -2,7 +2,7 @@ import { db } from "../../db.js";
 
 export const listarProveedores = async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM proveedor");
+    const { rows } = await db.query("SELECT * FROM proveedor");
     res.json(rows);
   } catch (error) {
     return res.status(500).json({
@@ -12,14 +12,12 @@ export const listarProveedores = async (req, res) => {
 };
 
 export const listarProveedoresId = async (req, res) => {
-  const { oridde } = req.params;
+  const { id } = req.params;
   try {
-    const [rows] = await db.query("SELECT * FROM proveedor WHERE id = ?", [
-      id,
-    ]);
+    const { rows } = await db.query("SELECT * FROM proveedor WHERE id = $1", [id]);
     if (rows.length === 0) {
       return res.status(404).json({
-        message: "el producto no existe",
+        message: "el proveedor no existe",
       });
     }
     res.json(rows[0]);

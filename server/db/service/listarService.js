@@ -2,11 +2,11 @@ import { db } from "../../db.js";
 
 export const listarProducto = async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM servicio");
+    const { rows } = await db.query("SELECT * FROM servicio");
     res.json(rows);
   } catch (error) {
     return res.status(500).json({
-      message: "ocurrio un error",
+      message: "ocurrió un error",
     });
   }
 };
@@ -14,9 +14,7 @@ export const listarProducto = async (req, res) => {
 export const listarProductoId = async (req, res) => {
   const { codigo } = req.params;
   try {
-    const [rows] = await db.query("SELECT * FROM servicio WHERE codigo = ?", [
-      codigo,
-    ]);
+    const { rows } = await db.query("SELECT * FROM servicio WHERE codigo = $1", [codigo]);
     if (rows.length === 0) {
       return res.status(404).json({
         message: "el producto no existe",
@@ -25,7 +23,7 @@ export const listarProductoId = async (req, res) => {
     res.json(rows[0]);
   } catch (error) {
     return res.status(500).json({
-      message: "ocurrio un error",
+      message: "ocurrió un error",
     });
   }
 };
