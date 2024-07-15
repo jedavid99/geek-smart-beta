@@ -12,10 +12,9 @@ model Empresa {
   id                       Int               @id @default(autoincrement())
   nombre_de_empresa       String             @unique @map("nombre_de_empresa_column")
   CUIT_CUIL               String
-  Dirección               String
+  Direccion               String
   google_maps             String
   servicio_de_la_empresa  String
-  dueño_de_la_empresa     String
   telefono_de_la_empresa  String
 }
 
@@ -67,9 +66,8 @@ model proveedores {
   id                        Int               @id @default(autoincrement())
   nombre                    String             
   cuit_cuil                 String           
-  dirección                 String
+  direccion                 String
   telefono                  String
   categoria                 String  
   calidad                   String
-
 }
