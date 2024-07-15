@@ -44,7 +44,7 @@ export const BarChartMes = () => {
           })
         );
 
-        console.log("Updated repardo:", updatedDataset);
+      
         setDataset(updatedDataset);
       } catch (error) {
         console.error("Error fetching data:", error);

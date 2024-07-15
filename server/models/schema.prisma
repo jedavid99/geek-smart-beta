@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+generator client {
+  provider = "prisma-¡'0' -js"
+}
+
+model Empresa {
+  id                       Int               @id @default(autoincrement())
+  nombre_de_empresa       String             @unique @map("nombre_de_empresa_column")
+  CUIT_CUIL               String
+  Dirección               String
+  google_maps             String
+  servicio_de_la_empresa  String
+  dueño_de_la_empresa     String
+  telefono_de_la_empresa  String
+}
+
+model servicios {
+  id                 Int               @id @default(autoincrement())
+  codigo             String
+  nombre             String            @unique(map: "nombre")
+  categoria          String
+  servicio           String
+  precio             String
+  dispositivo        String
+  dni                String
+  telefono_cliente   String
+  fecha_registro     DateTime @default(now())
+  descripcion        String
+  estatus            String
+  emei_codigo        String
+  fecha_entregado    DateTime @map("delivery_date")
+}
+
+
+model usuarios {
+  id              Int               @id @default(autoincrement())
+  usuario         String             @unique(map: "usuario")
+  clave           String           
+  rol             String
+  cargo           String
+  nombre          String  
+  dni             String
+  numero          String
+
+}
+
+
+model tareas {
+  id                    Int               @id @default(autoincrement())
+  tarea                String             
+  created_at           DateTime @default(now())
+  status               String
+  titulo               String
+  fecha_update         DateTime
+
+}
+
+
+
+
+model proveedores {
+  id                        Int               @id @default(autoincrement())
+  nombre                    String             
+  cuit_cuil                 String           
+  dirección                 String
+  telefono                  String
+  categoria                 String  
+  calidad                   String
+
+}

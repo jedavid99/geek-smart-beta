@@ -1,24 +1,27 @@
-import  pg  from "pg";
-import {
-  DB_HOST,
-  DB_USER,
-  DB_PASSWORD,
-  DB_PORT,
-  DB_DATABASE,
-} from "./config.js";
+import pg from "pg";
+import { config } from "dotenv";
+config(); // Carga las variables de entorno de .env
 
 export const db = new pg.Pool({
-  user: DB_USER,
-  password: DB_PASSWORD,
-  host: DB_HOST,
-  port: DB_PORT,
-  database: DB_DATABASE,
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    port: process.env.POSTGRES_PORT,
+    ssl: {
+        rejectUnauthorized: false, // Puedes necesitar esto dependiendo de tu configuración de certificados
+        sslmode: "require", // Asegúrate de agregar esto para usar SSL
+    },
 });
 
 db.query("SELECT 1")
- .then(() => console.log("base de conectada"))
- .catch((err) => console.log(err));
+    .then(() => console.log("Base de datos conectada correctamente"))
+    .catch((err) =>
+        console.error("Error al conectar a la base de datos:", err)
+    );
+
 db.on("error", (error) => {
-  console.log("Error en la base de datos:", error);
+    console.error("Error en la base de datos:", error);
 });
+
 export default db;

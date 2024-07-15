@@ -2,9 +2,8 @@ import  Axios  from "axios";
 import { Home } from "./Home";
 import { useState } from "react";
 import { API_URL } from "../host";
-import { Button , message} from "antd";
+import {message} from "antd";
 import Logo from "../assets/img/geeksmart.jpg";
-import { NavLink, useNavigate } from "react-router-dom";
 
 
 
@@ -61,7 +60,6 @@ export const Login = () => {
       },
     });
   };
-  const navigate = useNavigate();
 
     return(
         <>{loginSuccessful ?   <Home/> : <div className="custom-form">

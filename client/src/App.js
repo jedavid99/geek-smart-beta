@@ -42,16 +42,16 @@ function App() {
           <Route exact path="/" element={<Login/>}/>
           {tokenValid ? (
             <>
-              <Route exact path="/proveedores" element={<Proveedores/>}/>
-              <Route exact path="/home" element={<Home/>}/>
-              <Route exact path="/Clientes" element={<Telefono/>}/>
-              <Route exact path="/reportes" element={<Reportes/>}/>
-              <Route exact path="/empresa" element={<Empresa/>}/>
-              <Route exact path="/usuarios" element={<UsuariosConfig/>}/>
-              <Route exact path="/orden_de_servicio.pdf" element={<PdfOrden/>}/>
-              <Route exact path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF/>}/>
-              <Route exact path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF/>}/>
-              <Route exact path="/Garantias.pdf" element={<GarantiaPDF/>}/>
+             <Route path="/proveedores" element={<Proveedores/>}/>
+      <Route path="/home" element={<Home/>}/>
+      <Route path="/Clientes" element={<Telefono/>}/>
+      <Route path="/reportes" element={<Reportes/>}/>
+      <Route path="/empresa" element={<Empresa/>}/>
+      <Route path="/usuarios" element={<UsuariosConfig/>}/>
+      <Route path="/orden_de_servicio.pdf" element={<PdfOrden/>}/>
+      <Route path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF/>}/>
+      <Route path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF/>}/>
+      <Route path="/Garantias.pdf" element={<GarantiaPDF/>}/>
             </>
           ) : (
             <Route path="*" element={<Login/>}/>
