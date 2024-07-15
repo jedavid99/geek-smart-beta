@@ -1,6 +1,6 @@
 import { db } from "../../db.js";
 
-export const productoEliminar = async (req, res) => {
+export const ServicioEliminar = async (req, res) => {
   const { codigo } = req.params;
   try {
     const { rows } = await db.query("DELETE FROM servicio WHERE codigo = $1", [codigo]);

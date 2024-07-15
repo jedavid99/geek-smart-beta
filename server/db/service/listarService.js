@@ -1,6 +1,6 @@
 import { db } from "../../db.js";
 
-export const listarProducto = async (req, res) => {
+export const listarServicio = async (req, res) => {
   try {
     const { rows } = await db.query("SELECT * FROM servicio");
     res.json(rows);
@@ -11,7 +11,7 @@ export const listarProducto = async (req, res) => {
   }
 };
 
-export const listarProductoId = async (req, res) => {
+export const listarServicioId = async (req, res) => {
   const { codigo } = req.params;
   try {
     const { rows } = await db.query("SELECT * FROM servicio WHERE codigo = $1", [codigo]);
