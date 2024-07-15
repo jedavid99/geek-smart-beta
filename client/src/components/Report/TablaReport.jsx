@@ -38,7 +38,8 @@ export const TablaReport = () => {
       title: "codigo",
       dataIndex: "codigo",
       width: "5%",
-      ...getColumnSearchProps("codigo"), //
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps("codigo"),
     },
 
     {
@@ -47,7 +48,7 @@ export const TablaReport = () => {
       dataIndex: "nombre",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("nombre"), //
+      ...getColumnSearchProps("nombre"),
     },
 
     {

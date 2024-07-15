@@ -1,6 +1,6 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Login } from './paginas/Login'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Login } from './paginas/Login';
 import { Proveedores } from './paginas/Proveedores';
 import { Home } from './paginas/Home';
 import { Telefono } from './paginas/Telefono';
@@ -16,8 +16,8 @@ import { useState, useEffect } from 'react';
 function parseJwt(token) {
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(c => {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
 
   return JSON.parse(jsonPayload);
@@ -34,27 +34,26 @@ function App() {
     }
   }, []);
 
-  
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Login/>}/>
+          <Route exact path="/" element={<Login />} />
           {tokenValid ? (
             <>
-             <Route path="/proveedores" element={<Proveedores/>}/>
-      <Route path="/home" element={<Home/>}/>
-      <Route path="/Clientes" element={<Telefono/>}/>
-      <Route path="/reportes" element={<Reportes/>}/>
-      <Route path="/empresa" element={<Empresa/>}/>
-      <Route path="/usuarios" element={<UsuariosConfig/>}/>
-      <Route path="/orden_de_servicio.pdf" element={<PdfOrden/>}/>
-      <Route path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF/>}/>
-      <Route path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF/>}/>
-      <Route path="/Garantias.pdf" element={<GarantiaPDF/>}/>
+              <Route path="/proveedores" element={<Proveedores />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/Clientes" element={<Telefono />} />
+              <Route path="/reportes" element={<Reportes />} />
+              <Route path="/empresa" element={<Empresa />} />
+              <Route path="/usuarios" element={<UsuariosConfig />} />
+              <Route path="/orden_de_servicio.pdf" element={<PdfOrden />} />
+              <Route path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF />} />
+              <Route path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF />} />
+              <Route path="/Garantias.pdf" element={<GarantiaPDF />} />
             </>
           ) : (
-            <Route path="*" element={<Login/>}/>
+            <Route path="*" element={<Login />} />
           )}
         </Routes>
       </BrowserRouter>
