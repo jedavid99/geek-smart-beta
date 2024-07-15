@@ -10,7 +10,7 @@ export const ServicioTotal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await Axios.get(`${API_URL}/producto`);
+      const response = await Axios.get(`${API_URL}/Servicio`);
       const equiposReparados = response.data.filter(
         (equipo) => equipo.estatus === "Reparado"
       );

@@ -26,7 +26,7 @@ export const PdfOrden = () => {
   useEffect(() => {
     const fetchRecieptData = async () => {
       try {
-        const response = await Axios.get(`${API_URL}/producto/${codigo}`);
+        const response = await Axios.get(`${API_URL}/Servicio/${codigo}`);
         if (response.status === 200) {
           const data = response.data; // Assuming the response data is in the format you need
           setRecieptData(data);
