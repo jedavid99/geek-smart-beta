@@ -31,6 +31,7 @@ function App() {
     if (token) {
       const parsedToken = parseJwt(token);
       setTokenValid(parsedToken.exp * 1000 > Date.now());
+      console.log('Token valid:', tokenValid);
     }
   }, []);
 
@@ -40,7 +41,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Login />} />
           {tokenValid ? (
-            <>
+            <Routes>
               <Route path="/proveedores" element={<Proveedores />} />
               <Route path="/home" element={<Home />} />
               <Route path="/Clientes" element={<Telefono />} />
@@ -51,7 +52,7 @@ function App() {
               <Route path="/Todos_Los_Equipos.pdf" element={<TodoLosEquiposPDF />} />
               <Route path="/Equipos_Reparados.pdf" element={<EquiposReparadosPDF />} />
               <Route path="/Garantias.pdf" element={<GarantiaPDF />} />
-            </>
+            </Routes>
           ) : (
             <Route path="*" element={<Login />} />
           )}
