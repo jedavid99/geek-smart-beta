@@ -1,1 +1,1 @@
-export const API_URL = "https://server-one-theta-71.vercel.app/";
+export const API_URL = "https://server-27zytazfk-jesus-david-henriquezs-projects.vercel.app/";
