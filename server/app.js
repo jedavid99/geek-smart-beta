@@ -27,7 +27,7 @@ app.use((req, res) => {
 // endPoint
 app.use(
   cors({
-    origin: ["https://geek-smart-beta.vercel.app/"],
+    origin: ["https://geek-smart-beta.vercel.app"],
     methods: ["POST"],
   })
 );
