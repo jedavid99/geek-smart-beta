@@ -49,7 +49,7 @@ export const Reportes = () => {
               <BarChartServise />
             </div>
           </div>
-          <BotonImprimir />
+          <BotonImprimir className=" mt-10" />
         </Card>
         <FloatButton
           className="float-btn  hidden-on-desktop"

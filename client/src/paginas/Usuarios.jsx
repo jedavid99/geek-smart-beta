@@ -29,7 +29,7 @@ export const UsuariosConfig = () => {
       />
       <br />
       <UsuariosLista />
-      <BotonUsuarios />
+      <BotonUsuarios className=" mt-10" />
       <FloatButton
           className="float-btn  hidden-on-desktop"
           type="primary"

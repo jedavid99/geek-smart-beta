@@ -2,8 +2,8 @@ import React from "react";
 import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
 import { DatosEmpresa } from "../components/Config/Empresa/DatosEmpresa";
 import { BotonConfigEmpres } from "../components/Config/Empresa/BotonConfigEmpres";
-import { Breadcrumb } from "antd";
-import { HomeOutlined, SettingFilled } from "@ant-design/icons";
+import { Breadcrumb, FloatButton } from "antd";
+import { HomeOutlined, SettingFilled ,ReconciliationFilled} from "@ant-design/icons";
 
 export const Empresa = () => {
   return (
@@ -29,7 +29,12 @@ export const Empresa = () => {
       />
 
       <DatosEmpresa />
-      <BotonConfigEmpres />
+      <BotonConfigEmpres className=" mt-10" />
+      <FloatButton
+          className="float-btn  hidden-on-desktop"
+          type="primary"
+          icon={<ReconciliationFilled />}
+        />
     </LayoutPrincipal>
   );
 };
