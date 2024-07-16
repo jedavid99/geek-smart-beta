@@ -29,7 +29,7 @@ export const BotonUsuarios = () => {
    
 
    
-      <FloatButton.Group
+      <FloatButton.Group   className="float-btn"
        
         icon={<UpCircleFilled />}
         trigger="click"
