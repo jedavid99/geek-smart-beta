@@ -133,16 +133,17 @@ border-radius: 10px;
 }
 
 .sm\:center-btn {
-  @media (max-width: 576px) { /* adjust the breakpoint as needed */
+  @media (max-width: 576px) { 
     position: fixed;
     bottom: 20px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-80%);
   }
 }
+
 .tooltip {
   @media (max-width: 576px) {
-    .ant-tooltip-inner {
+   .ant-tooltip-inner {
       display: none;
     }
   }
