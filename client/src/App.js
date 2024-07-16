@@ -31,13 +31,16 @@ function AuthenticatedRoute({ children }) {
     if (token) {
       const parsedToken = parseJwt(token);
       setTokenValid(parsedToken.exp * 1000 > Date.now());
+      console.log('Token valid:', tokenValid);
     }
   }, []);
 
   if (!tokenValid) {
+    console.log('Token is not valid, redirecting to login');
     return <Login />;
   }
 
+  console.log('Token is valid, rendering children');
   return children;
 }
 
