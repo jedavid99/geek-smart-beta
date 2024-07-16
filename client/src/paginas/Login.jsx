@@ -7,7 +7,7 @@ import Logo from "../assets/img/geeksmart.jpg";
 import { useNavigate } from 'react-router-dom';
 
 
-export const Login = () => {
+export const Login = ({ onSuccess }) => {
   const navigate = useNavigate();
   const [clave, setPassword] = useState('');
   const [usuario, setUsername] = useState('');
