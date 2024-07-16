@@ -27,7 +27,7 @@ export const BotonUsuarios = () => {
   return (
     <>
       <FloatButton.Group
-        className="float-btn sm:center-btn"
+        className="float-btn  hidden-on-desktop"
         icon={<UpCircleFilled />}
         trigger="click"
         type="primary"
