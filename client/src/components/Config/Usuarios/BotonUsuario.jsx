@@ -4,7 +4,7 @@ import {
   UpCircleFilled,
 } from "@ant-design/icons";
 import React, { useState } from "react";
-import { Drawer, FloatButton, Tooltip } from "antd";
+import { Drawer, FloatButton,Button,  Tooltip } from "antd";
 import { FormAgreUser } from "./FormAgreUsua";
 import { FormTareas } from "./tareas/Tareas";
 
@@ -27,6 +27,8 @@ export const BotonUsuarios = () => {
   return (
     <>
     <div  className="float-btn ">
+
+      <Button className="float-btn"  >S </Button>
       <FloatButton.Group
        
         icon={<UpCircleFilled />}
