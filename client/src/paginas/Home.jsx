@@ -6,6 +6,8 @@ import { TablaReport } from "../components/Report/TablaReport";
 import { BarChartServise } from "../components/home/chartServicio";
 import { BarChartMes } from "../components/home/barcharMes";
 import { DashboardFilled } from "@ant-design/icons";
+import "../App.css";
+
 
 export const Home = () => {
 
