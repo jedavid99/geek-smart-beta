@@ -30,7 +30,7 @@ export const Home = () => {
           <LineaRecordatorio />
         </div>
         <FloatButton
-          className="float-btn sm:center-btn hidden-on-desktop"
+          className="float-btn  hidden-on-desktop"
           type="primary"
           icon={<DashboardFilled />}
         />
