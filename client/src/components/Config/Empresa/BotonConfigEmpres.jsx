@@ -17,7 +17,7 @@ export const BotonConfigEmpres = () => {
     <>
      
         {" "}
-        <Tooltip placement="leftBottom" title="Actualizar datos" color="blue">
+        <Tooltip placement="leftBottom"    title={window.innerWidth > 576 ? "Actualizar datos " : undefined} color="blue">
           <FloatButton
             onClick={showDrawer}
             type="primary"
