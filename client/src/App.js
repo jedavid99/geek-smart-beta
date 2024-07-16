@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {  Routes, Route } from "react-router-dom";
 import { Login } from "./paginas/Login";
 import { Proveedores } from "./paginas/Proveedores";
 import { Home } from "./paginas/Home";
@@ -45,7 +45,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    
     <div>
      
         <Routes>
@@ -74,7 +74,7 @@ function App() {
           )}
         </Routes>
     </div>
-    </BrowserRouter>
+    
 
   );
 }
