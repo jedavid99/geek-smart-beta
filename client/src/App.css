@@ -126,6 +126,15 @@ border-radius: 10px;
   color: rgb(0, 0, 0);
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
+
+@media (max-width: 767.98px) {
+  .float-btn {
+    display: block;
+    right: 164px;
+
+  }
+}
+
 .float-btn {
   position: fixed;
   bottom: 20px;
@@ -164,8 +173,9 @@ border-radius: 10px;
 @media (max-width: 767.98px) {
   .hidden-on-desktop {
     display: block;
-    right: 164px;
+            right: 164px;
 
   }
 }
+
 
