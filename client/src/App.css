@@ -157,12 +157,15 @@ border-radius: 10px;
 
 .hidden-on-desktop {
   display: none;
+
 }
 
 /* Mostrar solo en pantallas pequeñas (mobiles) */
 @media (max-width: 767.98px) {
   .hidden-on-desktop {
     display: block;
+    right: 164px;
+
   }
 }
 
