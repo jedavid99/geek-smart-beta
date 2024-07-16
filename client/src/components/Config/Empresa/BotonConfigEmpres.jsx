@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EditFilled, ShopFilled } from "@ant-design/icons";
+import { EditFilled} from "@ant-design/icons";
 import { Drawer, FloatButton, Space, Tooltip } from "antd";
 import { EditarDatosEmpresa } from "./EditarDatosEmpresa";
 
@@ -21,7 +21,7 @@ export const BotonConfigEmpres = () => {
           <FloatButton
             onClick={showDrawer}
             type="primary"
-            icon={<ShopFilled />}
+            icon={<EditFilled />}
             className="float-btn"
           />
         </Tooltip>
