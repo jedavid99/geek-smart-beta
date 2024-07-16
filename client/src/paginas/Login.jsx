@@ -15,7 +15,7 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
+    if (!usuario || !clave) {
       messageApi.open({
         type: "warning",
         content: "Por favor, introduce los datos requeridos para continuar.",
