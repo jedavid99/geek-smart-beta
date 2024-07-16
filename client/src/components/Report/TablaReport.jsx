@@ -53,7 +53,7 @@ export const TablaReport = () => {
 
     {
       key: "servicio",
-      title: "Tipo de servio",
+      title: "Servio",
       dataIndex: "servicio",
       render: (text) => <a>{text}</a>,
       width: "50%",
@@ -61,7 +61,7 @@ export const TablaReport = () => {
 
     {
       key: "fecha_registro",
-      title: "Fecha de ingreso",
+      title: "Ingreso",
       dataIndex: "fecha_registro",
       render: (text) => <a>{new Date(text).toLocaleDateString()}</a>,
     },
