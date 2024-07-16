@@ -26,10 +26,10 @@ export const BotonUsuarios = () => {
 
   return (
     <>
-   
+    <div  className="float-btn ">
 
    
-      <FloatButton.Group   className="float-btn"
+      <FloatButton.Group
        
         icon={<UpCircleFilled />}
         trigger="click"
@@ -51,7 +51,7 @@ export const BotonUsuarios = () => {
           />
         </Tooltip>
       </FloatButton.Group>
-     
+      </div>
       <Drawer
         title="Agregar Usuario"
         width={400}
