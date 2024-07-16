@@ -45,8 +45,9 @@ function App() {
   };
 
   return (
+    <BrowserRouter>
     <div>
-      <BrowserRouter>
+     
         <Routes>
           <Route exact path="/" element={<Login onSuccess={handleLoginSuccess} />} />
           {tokenValid ? (
@@ -72,8 +73,9 @@ function App() {
             <Route path="*" element={<Login />} />
           )}
         </Routes>
-      </BrowserRouter>
     </div>
+    </BrowserRouter>
+
   );
 }
 
