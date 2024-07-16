@@ -8,7 +8,7 @@ export const BotonImprimir = () => {
  
  
       <FloatButton.Group
-       
+       className="mb-4"
         icon={<PrinterOutlined />}
         trigger="click"
         type="primary"
