@@ -129,7 +129,6 @@ border-radius: 10px;
 .float-btn {
   position: fixed;
   bottom: 20px;
-  right: 20px;
   z-index: 1;
 }
 
@@ -138,6 +137,8 @@ border-radius: 10px;
     position: fixed;
     bottom: 20px;
     left: 50%;
+      right: 164px;
+
     transform: translateX(-50%);
   }
 }
