@@ -127,6 +127,29 @@ border-radius: 10px;
 }
 
 
+/* Center the float button on mobile devices */
+.mobile-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px; /* adjust the bottom margin to your liking */
+}
+
+/* Make sure to hide the button on desktop devices */
+.hidden-on-desktop {
+  display: none;
+}
+
+/* Show the button on mobile devices and apply the centering styles */
+@media only screen and (max-width: 768px) {
+  .hidden-on-desktop {
+    display: block;
+  }
+  .mobile-center {
+    display: block;
+  }
+}
+
 .sm\:center-btn {
   @media (max-width: 576px) { /* adjust the breakpoint as needed */
     position: fixed;
