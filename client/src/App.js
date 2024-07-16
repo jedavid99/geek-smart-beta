@@ -40,11 +40,15 @@ function App() {
     }
   }, []);
 
+  const handleLoginSuccess = () => {
+    setTokenValid(true);
+  };
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Login onSuccess={handleLoginSuccess} />} />
           {tokenValid ? (
             <>
               <Route path="/proveedores" element={<Proveedores />} />

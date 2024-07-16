@@ -30,6 +30,7 @@ export const Login = () => {
         if(response.data.token){
           localStorage.setItem('token', response.data.token)
           setLoginSuccessful(true);
+          onSuccess(); // Call the onSuccess function here
           navigate('/home', { replace: true });
         } else {
           ErrorClave();
