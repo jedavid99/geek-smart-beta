@@ -4,11 +4,11 @@ import { useState } from "react";
 import { API_URL } from "../host";
 import {message} from "antd";
 import Logo from "../assets/img/geeksmart.jpg";
-
+import { useHistory } from 'react-router-dom';
 
 
 export const Login = () => {
-
+  const history = useHistory()
   const [clave, setPassword] = useState('');
   const [usuario, setUsername] = useState('');
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -29,7 +29,7 @@ export const Login = () => {
         console.log(response.data.token)
         if(response.data.token){
           localStorage.setItem('token', response.data.token)
-          setLoginSuccessful(true);
+          history.push('/home');
         } else {
           ErrorClave();
         }
@@ -62,7 +62,7 @@ export const Login = () => {
   };
 
     return(
-        <>{loginSuccessful ?   <Home/> : <div className="custom-form">
+        <> <div className="custom-form">
           <div>
           {contextHolder}
           </div>
@@ -134,7 +134,7 @@ export const Login = () => {
         </div>
       </div>
 
-            </div>}</>
+            </div></>
     );
 }
 
