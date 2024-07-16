@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
-import { HomeOutlined, SettingFilled } from "@ant-design/icons";
-import { Breadcrumb } from "antd";
+import { HomeOutlined, SettingFilled ,IdcardFilled } from "@ant-design/icons";
+import { Breadcrumb, FloatButton } from "antd";
 import { UsuariosLista } from "../components/Config/Usuarios/UsuariosLista";
 import { BotonUsuarios } from "../components/Config/Usuarios/BotonUsuario";
 
@@ -30,6 +30,11 @@ export const UsuariosConfig = () => {
       <br />
       <UsuariosLista />
       <BotonUsuarios />
+      <FloatButton
+          className="float-btn  hidden-on-desktop"
+          type="primary"
+          icon={<IdcardFilled />}
+        />
     </LayoutPrincipal>
   );
 };

@@ -26,9 +26,9 @@ export const BotonUsuarios = () => {
 
   return (
     <>
-    <div  className="float-btn ">
+   
 
-      <Button className="float-btn"  >S </Button>
+   
       <FloatButton.Group
        
         icon={<UpCircleFilled />}
@@ -51,7 +51,7 @@ export const BotonUsuarios = () => {
           />
         </Tooltip>
       </FloatButton.Group>
-      </div>
+     
       <Drawer
         title="Agregar Usuario"
         width={400}

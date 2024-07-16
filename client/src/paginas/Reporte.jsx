@@ -51,6 +51,11 @@ export const Reportes = () => {
           </div>
           <BotonImprimir />
         </Card>
+        <FloatButton
+          className="float-btn  hidden-on-desktop"
+          type="primary"
+          icon={<FilePdfFilled />}
+        />
       </LayoutPrincipal>
     </div>
   );
