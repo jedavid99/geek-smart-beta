@@ -5,8 +5,9 @@ import { PrinterOutlined} from "@ant-design/icons";
 export const BotonImprimir = () => {
   return (
     <>
+    <div  className="float-btn ">
       <FloatButton.Group
-        className="float-btn"
+       
         icon={<PrinterOutlined />}
         trigger="click"
         type="primary"
@@ -34,6 +35,7 @@ export const BotonImprimir = () => {
           />
         </Tooltip>
       </FloatButton.Group>
+      </div>
     </>
   );
 };
