@@ -40,9 +40,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Login />} />
+          
           {tokenValid ? (
             <Routes>
-              <Route path="https://geek-smart-beta.vercel.app/proveedores" element={<Proveedores />} />
               <Route path="/home" element={<Home />} />
               <Route path="/Clientes" element={<Telefono />} />
               <Route path="/reportes" element={<Reportes />} />
@@ -56,6 +56,7 @@ function App() {
           ) : (
             <Route path="*" element={<Login />} />
           )}
+            <Route path="/proveedores" element={<Proveedores />} />
         </Routes>
       </BrowserRouter>
     </div>
