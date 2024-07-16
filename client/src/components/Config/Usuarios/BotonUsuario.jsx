@@ -37,14 +37,14 @@ export const BotonUsuarios = () => {
         style={{ right: 24 }}
       >
         <Tooltip placement="leftBottom" title="Agragar usuario" color="blue">
-          <FloatButton
+          <FloatButton className="float-btn"
             icon={<PlusCircleFilled />}
             onClick={showDrawer}
             type="primary"
           />
         </Tooltip>
         <Tooltip placement="leftBottom" title="Tareas" color="blue">
-          <FloatButton
+          <FloatButton className="float-btn"
             icon={<SignatureFilled />}
             onClick={showChat}
             type="primary"
