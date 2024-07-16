@@ -15,24 +15,17 @@ export const BotonConfigEmpres = () => {
   };
   return (
     <>
-      <FloatButton.Group
-        trigger="click"
-        type="primary"
-        style={{
-          right: 24,
-        }}
-        icon={<EditFilled />}
-        className="float-btn sm:center-btn"
-      >
+     
         {" "}
         <Tooltip placement="leftBottom" title="Actualizar datos" color="blue">
           <FloatButton
             onClick={showDrawer}
             type="primary"
             icon={<ShopFilled />}
+            className="float-btn"
           />
         </Tooltip>
-      </FloatButton.Group>
+   
       <Space></Space>
 
       <Drawer title="Actualizar datos" onClose={onClose} open={open}>

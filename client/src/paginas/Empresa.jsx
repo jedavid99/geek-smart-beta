@@ -29,12 +29,8 @@ export const Empresa = () => {
       />
 
       <DatosEmpresa />
-      <BotonConfigEmpres className=" mt-10" />
-      <FloatButton
-          className="float-btn  hidden-on-desktop"
-          type="primary"
-          icon={<ReconciliationFilled />}
-        />
+      <BotonConfigEmpres />
+    
     </LayoutPrincipal>
   );
 };
