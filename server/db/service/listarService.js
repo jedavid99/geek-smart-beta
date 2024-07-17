@@ -2,7 +2,7 @@ import { db } from "../../db.js";
 
 export const listarServicio = async (req, res) => {
   try {
-    const { rows } = await db.query("SELECT * FROM servicio");
+    const { rows } = await db.query("SELECT * FROM servicio ORDER BY codigo DESC");
     res.json(rows);
   } catch (error) {
     return res.status(500).json({
