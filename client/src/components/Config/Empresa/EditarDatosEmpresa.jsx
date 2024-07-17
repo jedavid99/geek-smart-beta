@@ -1,164 +1,136 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Input, Row, notification } from "antd";
 import Axios from "axios";
 import { API_URL } from "../../../host";
 
 export const EditarDatosEmpresa = () => {
-  const [nombre_de_empresa, setNombre_de_empresa] = useState("");
-  const [CUIT_CUIL, setCUIT_CUIL] = useState("");
-  const [Dirección, setDirección] = useState("");
-  const [servicio_de_la_empresa, setServicio_de_la_empresa] = useState("");
-  const [dueño_de_la_empresa, setDueño_de_la_empresa] = useState("");
-  const [telefono_de_la_empresa, setTelefono_de_la_empresa] = useState("");
+  const [formData, setFormData] = useState({
+    id: "",
+    nombre_de_empresa: "",
+    cuit_cuil: "",
+    dirección: "",
+    servicio_de_la_empresa: "",
+    dueño_de_la_empresa: "",
+    telefono_de_la_empresa: "",
+  });
+
+  useEffect(() => {
+    // Obtener los datos actuales de la empresa
+    Axios.get(`${API_URL}/empresa_lista/1`)
+      .then((response) => {
+        console.log("datos", response.data);
+        setFormData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al cargar datos:", error);
+        notification.error({
+          message: "Error",
+          description: "No se pudieron cargar los datos de la empresa.",
+          duration: 3,
+        });
+      });
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log("Actualizando campo:", name, "con valor:", value);
+  };
 
   const EditarDatosEmpresa = () => {
-    Axios.patch(`${API_URL}/empresa_datos/1`, {
-      nombre_de_empresa: nombre_de_empresa,
-      CUIT_CUIL: CUIT_CUIL,
-      Dirección: Dirección,
-      servicio_de_la_empresa: servicio_de_la_empresa,
-      dueño_de_la_empresa: dueño_de_la_empresa,
-      telefono_de_la_empresa: telefono_de_la_empresa,
-    })
-      .then(() => {
+    console.log("Datos a enviar:", formData);
+    Axios.patch(`${API_URL}/empresa_datos/${formData.id}`, formData)
+      .then((response) => {
+        console.log("Respuesta del servidor:", response.data);
         notification.success({
           message: "Datos actualizados",
-          description: `los datos da la empresa ${nombre_de_empresa} han sido actualizados correctamente.`,
+          description: `Los datos de la empresa ${formData.nombre_de_empresa} han sido actualizados correctamente.`,
           duration: 3,
         });
       })
       .catch((error) => {
+        console.error("Error al actualizar datos:", error);
         notification.error({
           message: "Error ",
-          description: "Ha ocurrido un error al actulizar sus datos.",
+          description: "Ha ocurrido un error al actualizar sus datos.",
           duration: 3,
         });
       });
   };
 
-  const handleSubmit = () => {
-    EditarDatosEmpresa();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    EditarDatosEmpresa(); // Call the EditarDatosEmpresa function here
   };
 
   return (
     <>
-      <Form layout="vertical" hideRequiredMark onFinish={handleSubmit}>
+      <Form layout="vertical" hideRequiredMark onSubmit={handleSubmit}>
         <Row gutter={16}>
           <Col span={12}>
-            <Form.Item
-              name="nombre_de_empresa"
-              label="Nombre de la empresa"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor ingresar el nombre de la empresa ",
-                },
-              ]}
-            >
+            <Form.Item label="Nombre de la empresa">
               <Input
-                placeholder="Ingresar el nombre de la empresa"
-                value={nombre_de_empresa}
-                onChange={(e) => setNombre_de_empresa(e.target.value)}
+                name="nombre_de_empresa"
+                value={formData.nombre_de_empresa || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="CUIT_CUIL"
-              label="CUIT/CUIL"
-              rules={[
-                {
-                  required: true,
-                  message: "Ingresar el CUIT/CUIL de la empresa",
-                },
-              ]}
-            >
+            <Form.Item label="CUIT/CUIL">
               <Input
-                placeholder="Ingresar el CUIT/CUIL de la empresa"
-                value={CUIT_CUIL}
-                onChange={(e) => setCUIT_CUIL(e.target.value)}
+                name="cuit_cuil"
+                value={formData.cuit_cuil || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="telefono_de_la_empresa"
-              label="Telefono"
-              rules={[
-                {
-                  required: true,
-                  message: "Numero de la empresa",
-                },
-              ]}
-            >
+            <Form.Item label="Teléfono">
               <Input
-                placeholder="Ingresar el numero de la empresa"
-                value={telefono_de_la_empresa}
-                onChange={(e) => setTelefono_de_la_empresa(e.target.value)}
+                name="telefono_de_la_empresa"
+                value={formData.telefono_de_la_empresa || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="dueño_de_la_empresa"
-              label="Dueño de la empresa"
-              rules={[
-                {
-                  required: true,
-                  message: "Nombre del dueño o encargado",
-                },
-              ]}
-            >
+            <Form.Item label="Dueño de la empresa">
               <Input
-                placeholder="Nombre del dueño o encargado"
-                value={dueño_de_la_empresa}
-                onChange={(e) => setDueño_de_la_empresa(e.target.value)}
+                name="dueño_de_la_empresa"
+                value={formData.dueño_de_la_empresa || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item
-              name="servicio_de_la_empresa"
-              label="Tipo de negocio"
-              rules={[
-                {
-                  required: true,
-                  message: "Area de la empresa o negocio",
-                },
-              ]}
-            >
+            <Form.Item label="Tipo de negocio">
               <Input
-                placeholder="Area de la empresa o negocio"
-                value={servicio_de_la_empresa}
-                onChange={(e) => setServicio_de_la_empresa(e.target.value)}
+                name="servicio_de_la_empresa"
+                value={formData.servicio_de_la_empresa || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={16}>
           <Col span={24}>
-            <Form.Item
-              name="Dirección"
-              label="Dirrecion"
-              rules={[
-                {
-                  required: true,
-                  message: "Direccion de la empresa o negocio",
-                },
-              ]}
-            >
+            <Form.Item label="Dirección">
               <Input.TextArea
+                name="dirección"
                 rows={4}
-                placeholder="Dierrecion de la empresa o negocio"
-                value={Dirección}
-                onChange={(e) => setDirección(e.target.value)}
+                value={formData.dirección || ""}
+                onChange={handleInputChange}
               />
             </Form.Item>
           </Col>
         </Row>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Guardad
+          <Button type="primary" onClick={handleSubmit}>
+            Guardar
           </Button>
         </Form.Item>
       </Form>

@@ -2,7 +2,7 @@ import React from "react";
 import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
 import "../App.css";
 import { TablaReport } from "../components/Report/TablaReport";
-import { LineaRecordatorio } from "../components/home/lineaRecordatorio";
+import { Tareas } from "../components/home/Tareas";
 import { HomeOutlined, FilePdfFilled } from "@ant-design/icons";
 import { Breadcrumb, Card, Space } from "antd";
 import { ServicioTotal } from "../components/home/ServicioTotal";
@@ -14,7 +14,7 @@ export const Reportes = () => {
   return (
     <div>
       <LayoutPrincipal>
-        <Breadcrumb
+        <Breadcrumb className="ml-4"
           items={[
             {
               href: "/home",
@@ -31,7 +31,7 @@ export const Reportes = () => {
           ]}
         />
 
-        <Card>
+        <Card className="ml-4 mt-4">
           <div>
             <ServicioTotal />
           </div>
@@ -40,13 +40,13 @@ export const Reportes = () => {
               <TablaReport />
             </div>
             <div className="flex-1 ml-2">
-              <LineaRecordatorio />
+              <Tareas />
             </div>
           </div>
           <div className=" mt-9">
-            <BarChartMes />
+            <Card><BarChartMes /></Card>
             <div div className="flex flex-row w-full ml-4 mt-9 gap-x-4">
-              <BarChartServise />
+             <BarChartServise />
             </div>
           </div>
           <BotonImprimir />

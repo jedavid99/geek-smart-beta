@@ -25,18 +25,17 @@ import {
   UndoOutlined,
 } from "@ant-design/icons";
 import Axios from "axios";
-import useSearch from "../SeachTabla";
-import { API_URL } from "../../../host";
+import useSearch from "./SeachTabla";
+import { API_URL } from "../../host";
 const originData = [];
 {
   originData.push({
     nombre: "",
-    estatus: "",
-    DNI: "",
+  
   });
 }
 const options = [
-  { value: "Presupuestar", label: "Presupuestar" },
+  { value: 'Presupuestar', label: "Presupuestar" },
   { value: "Presupuestado", label: "Presupuestado" },
   { value: "Reparado", label: "Reparado" },
   { value: "Inrreparable", label: "Inrreparable" },
@@ -45,7 +44,7 @@ const options = [
   { value: "Garantia", label: "Garantia" },
 ];
 const tagRender = (props) => {
-  const { label, value, color, closable, onClose } = props;
+  const { label, color, closable, onClose } = props;
   const onPreventMouseDown = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -58,7 +57,7 @@ const tagRender = (props) => {
       onClose={onClose}
       style={{ marginInlineEnd: 4 }}
     >
-      {" "}
+    
       {label}
     </Tag>
   );
@@ -80,15 +79,9 @@ const EditableCell = ({
           <Form.Item
             name={dataIndex}
             style={{ margin: 0 }}
-            rules={[
-              {
-                required: true,
-                message: `Por favor seleccione el ${title}!`,
-              },
-            ]}
+        
           >
             <Select
-              mode="multiple"
               maxTagCount={4}
               tagRender={tagRender}
               style={{ width: "100%" }}
@@ -108,9 +101,7 @@ const EditableCell = ({
           <Form.Item
             name={dataIndex}
             style={{ margin: 0 }}
-            rules={[
-              { required: true, message: `Por favor ingrese el ${title}!` },
-            ]}
+            
           >
             {inputNode}
           </Form.Item>
@@ -121,45 +112,49 @@ const EditableCell = ({
     );
   }
 };
-export const TablaTelefonos = () => {
+export const TablaServicio = () => {
   const [refresh, setRefresh] = useState(false);
+  const [form] = Form.useForm();
+  const [data, setData] = useState(originData);
+  const [editingKey, setEditingKey] = useState("");
+  const isEditing = (record) => record.codigo === editingKey;
+  const [loading, setLoading] = useState(false);
+  const loadingTimeout = null;
+  const getColumnSearchProps = useSearch();
+
+  const cancel = () => {
+    setEditingKey("");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(`${API_URL}/producto`);
-        const listaTelefonosWithKeys = response.data.map((item, index) => {
+        const listaServicioWithKeys = response.data.map((item, index) => {
           return { ...item, key: index };
         });
-        setData(listaTelefonosWithKeys);
+        setData(listaServicioWithKeys);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
-    fetchData(); // Run fetchData when the component mounts or refresh changes
-  }, [refresh]); // Run fetchData when refresh changes
+    fetchData(); 
+  }, [refresh]); 
 
   const handleReload = () => {
-    setRefresh(true); // Update refresh state to trigger useEffect
+    setRefresh(true); 
     setLoading(true);
     clearTimeout(loadingTimeout);
     setTimeout(() => {
-      setRefresh(false); // Reset refresh state
+      setRefresh(false); 
       setLoading(false);
     }, 1000);
   };
-
-  const [form] = Form.useForm();
-  const [data, setData] = useState(originData);
-  const [editingKey, setEditingKey] = useState("");
-  const isEditing = (record) => record.codigo === editingKey;
   const edit = (record) => {
-    form.setFieldsValue({ nombre: "", estatus: "", DNI: "", ...record });
+    form.setFieldsValue({ nombre: "",  DNI: "", ...record });
     setEditingKey(record.codigo);
   };
-  const cancel = () => {
-    setEditingKey("");
-  };
+ 
   const save = async (codigo) => {
     try {
       const row = await form.validateFields();
@@ -180,9 +175,7 @@ export const TablaTelefonos = () => {
     }
   };
 
-  const [loading, setLoading] = useState(false);
-  const loadingTimeout = null;
-  const getColumnSearchProps = useSearch();
+
 
   const columns = [
     {
@@ -193,12 +186,12 @@ export const TablaTelefonos = () => {
       ...getColumnSearchProps("codigo"), //
     },
     {
-      key: "DNI",
+      key: "dni",
       title: "DNI",
-      dataIndex: "DNI",
+      dataIndex: "dni",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("DNI"), //
+      ...getColumnSearchProps("dni"), //
     },
     {
       key: "nombre",
@@ -209,9 +202,9 @@ export const TablaTelefonos = () => {
       ...getColumnSearchProps("nombre"), //
     },
     {
-      key: "telefono_Cliente",
+      key: "telefono_cliente",
       title: "Numero de telefono",
-      dataIndex: "telefono_Cliente",
+      dataIndex: "telefono_cliente",
       render: (text) => <a>{text}</a>,
       editable: true,
     },
@@ -402,7 +395,7 @@ export const TablaTelefonos = () => {
   return (
     <>
       <Button
-        className="mx-7   mb-4"
+        className="mx-7 mb-4"
         icon={<UndoOutlined spin={loading} />}
         type="primary"
         shape="circle"
