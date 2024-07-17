@@ -11,7 +11,7 @@ import { RegistroTareas } from "../user/tareas/NuevaTarea.js";
 import { registroUser } from "../user/userNuevo.js";
 import { UserEliminar } from "../user/userElimnar.js";
 import { UserSeccion } from "../user/userSeccion.js";
-import * as CtrListarTarea  from "../user/tareas/TareaLista.js";
+
 import * as CtrListarUsers from "../user/userListar.js";
 import * as CtrlistarProveedores from "../proveedor/ListaProveedor.js";
 import * as CtrlistarEmpresa from "../empresa/Empresa.js";
@@ -42,8 +42,7 @@ router.get("/proveedor/:id", CtrlistarProveedores.listarProveedoresId);
 
 //RUTAS tareas
 router.post("/tarea", RegistroTareas);
-router.get("/Tareas", CtrListarTarea.ListarTarea);
-router.get("/Tareas/:id",CtrListarTarea.ListarTareaId);
+
 
 
 //RUTAS usuarios
