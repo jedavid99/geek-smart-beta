@@ -57,7 +57,7 @@ export const BotonUsuarios = () => {
       >
         <FormAgreUser></FormAgreUser>
       </Drawer>
-      <Drawer width={450} onClose={onCloseChat} open={openchat}>
+      <Drawer width={650} onClose={onCloseChat} open={openchat}>
         <FormTareas></FormTareas>
       </Drawer>
     </>

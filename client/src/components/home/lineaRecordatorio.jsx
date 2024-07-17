@@ -1,77 +1,70 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { CaretRightOutlined } from "@ant-design/icons";
-import { Collapse, Tooltip, theme } from "antd";
+import { Collapse, Tooltip, Typography, theme } from "antd";
+import { API_URL } from "../../host";
+import Axios from "axios";
 
-const getItems = (panelStyle) => [
-  {
-    key: "1",
-    label: "Gasto 24-06-2024",
-    children: <p> compra pasta termica</p>,
-    style: panelStyle,
-  },
-  {
-    key: "2",
-    label: "mercancia  10-06-2024 ",
-    children: <p>enviar modulo</p>,
-    style: panelStyle,
-  },
-  {
-    key: "3",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "4",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "5",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "6",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "7",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "8",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "9",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-  {
-    key: "10",
-    label: "  insumo 10-06-2024",
-    children: <p>reparar estacion de calor</p>,
-  },
-];
 export const LineaRecordatorio = () => {
+  const [data, setData] = useState([]);
 
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Axios.get(`${API_URL}/Tareas`);
+        const listaTelefonosWithKeys = response.data.map((item, index) => {
+          return { ...item, key: index };
+        });
+        setData(listaTelefonosWithKeys);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const getItems = () =>
+    data.map((item) => ({
+      key: item.id,
+      label: (
+        <Typography>
+          <span style={{ fontWeight: "bold" }}>Fecha:</span>{" "}
+          {new Date(item.created_at).toLocaleDateString()}
+          <br />
+          <span style={{ fontWeight: "bold" }}>Tarea:</span> {item.titulo}
+        </Typography>
+      ),
+      children: (
+        <>
+          <div className="flex flex-row justify-center">
+            <Typography>
+              <span style={{ fontWeight: "bold" }}> Descripción:</span>{" "}
+              {item.tarea} <br />
+
+             
+            </Typography>
+          </div>
+          <Typography class="ml-auto text-left">
+    <span class="font-bold">categoria:</span> {item.status}
+  </Typography>
+          <span style={{ fontWeight: "bold" }}>
+                fecha de actualizacion:{" "}
+              </span>{" "}
+              {new Date(item.fecha_update).toLocaleDateString()}
+        </>
+      ),
+    }));
+
   return (
-    <Tooltip placement="top" title="tareas pendite" color="blue">
-      <span>
-        <Collapse
-          bordered={false}
-          defaultActiveKey={["1"]}
-          expandIcon={({ isActive }) => (
-            <CaretRightOutlined rotate={isActive ? 90 : 0} />
-          )}
-          className="bg-yellow-100 p-4 rounded-md shadow-md overflow-y-auto h-screen md:h-96 lg:h-128 xl:h-160"
-          items={getItems()}
-        />
-      </span>
-    </Tooltip>
+    <span>
+      <Collapse
+        bordered={false}
+        defaultActiveKey={["1"]}
+        expandIcon={({ isActive }) => (
+          <CaretRightOutlined rotate={isActive ? 90 : 0} />
+        )}
+        className="bg-yellow-100 p-4 rounded-md shadow-md overflow-y-auto h-screen md:h-96 lg:h-128 xl:h-160"
+        items={getItems()}
+      />
+    </span>
   );
 };
