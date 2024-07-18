@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Login } from './paginas/Login'
 import { Proveedores } from './paginas/Proveedores';
 import { Home } from './paginas/Home';
-import { Telefono } from './paginas/Telefono';
+import { Servicio } from './paginas/Servicio';
 import { Reportes } from './paginas/Reporte';
 import { Empresa } from './paginas/Empresa';
 import { UsuariosConfig } from './paginas/Usuarios';
@@ -54,7 +54,7 @@ function App() {
             <>
              <Route path="/proveedores" element={<Proveedores/>}/>
       <Route path="/home" element={<Home/>}/>
-      <Route path="/Clientes" element={<Telefono/>}/>
+      <Route path="/Clientes" element={<Servicio/>}/>
       <Route path="/reportes" element={<Reportes/>}/>
       <Route path="/empresa" element={<Empresa/>}/>
       <Route path="/usuarios" element={<UsuariosConfig/>}/>

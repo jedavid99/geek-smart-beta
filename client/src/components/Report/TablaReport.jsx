@@ -23,8 +23,8 @@ export const TablaReport = () => {
   }, []);
 
   const getTelefonosLista = () => {
-    Axios.get(`${API_URL}/producto`, {}).then((response) => {
-      const listaTelefonosWithKeys = response.data.map((item, index) => {
+    Axios.get(`${API_URL}/Servicio`, {}).then((response) => {
+      const listaReporWithKeys = response.data.map((item, index) => {
         return { ...item, key: index };
       });
       setListaReport(listaReporWithKeys);
