@@ -25,8 +25,8 @@ import {
   UndoOutlined,
 } from "@ant-design/icons";
 import Axios from "axios";
-import useSearch from "../SeachTabla";
-import { API_URL } from "../../../host";
+import useSearch from "./SeachTabla";
+import { API_URL } from "../../host";
 const originData = [];
 {
   originData.push({
@@ -121,13 +121,13 @@ const EditableCell = ({
     );
   }
 };
-export const TablaTelefonos = () => {
+export const TablaServicio = () => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get(`${API_URL}/producto`);
+        const response = await Axios.get(`${API_URL}/Servicio`);
         const listaTelefonosWithKeys = response.data.map((item, index) => {
           return { ...item, key: index };
         });
@@ -174,7 +174,7 @@ export const TablaTelefonos = () => {
       setData(newData);
       setEditingKey("");
 
-      await Axios.patch(`${API_URL}/producto/${codigo}`, row);
+      await Axios.patch(`${API_URL}/Servicio/${codigo}`, row);
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
