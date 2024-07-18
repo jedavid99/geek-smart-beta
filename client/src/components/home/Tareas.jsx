@@ -43,8 +43,8 @@ export const Tareas = () => {
              
             </Typography>
           </div>
-          <Typography class="ml-auto text-left">
-    <span class="font-bold">categoria:</span> {item.status}
+          <Typography className="ml-auto text-left">
+    <span className="font-bold">categoria:</span> {item.status}
   </Typography>
           <span style={{ fontWeight: "bold" }}>
                 fecha de actualizacion:{" "}
@@ -58,7 +58,7 @@ export const Tareas = () => {
     <span>
       <Collapse
         bordered={false}
-        defaultActiveKey={["1"]}
+      
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}

@@ -27,7 +27,7 @@ app.use((req, res) => {
 // endPoint
 app.use(
   cors({
-    origin: ["https://geek-smart-beta.vercel.app"],
+    origin: ["http:/localhost:3000"],
     methods: ["POST"],
   })
 );

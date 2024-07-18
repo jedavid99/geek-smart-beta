@@ -80,15 +80,9 @@ const EditableCell = ({
           <Form.Item
             name={dataIndex}
             style={{ margin: 0 }}
-            rules={[
-              {
-                required: true,
-                message: `Por favor seleccione el ${title}!`,
-              },
-            ]}
+          
           >
             <Select
-              mode="multiple"
               maxTagCount={4}
               tagRender={tagRender}
               style={{ width: "100%" }}
@@ -108,9 +102,7 @@ const EditableCell = ({
           <Form.Item
             name={dataIndex}
             style={{ margin: 0 }}
-            rules={[
-              { required: true, message: `Por favor ingrese el ${title}!` },
-            ]}
+          
           >
             {inputNode}
           </Form.Item>
@@ -193,12 +185,12 @@ export const TablaServicio = () => {
       ...getColumnSearchProps("codigo"), //
     },
     {
-      key: "DNI",
-      title: "DNI",
-      dataIndex: "DNI",
+      key: "dni",
+      title: "dni",
+      dataIndex: "dni",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("DNI"), //
+      ...getColumnSearchProps("dni"), //
     },
     {
       key: "nombre",
@@ -209,9 +201,9 @@ export const TablaServicio = () => {
       ...getColumnSearchProps("nombre"), //
     },
     {
-      key: "telefono_Cliente",
+      key: "telefono_cliente",
       title: "Numero de telefono",
-      dataIndex: "telefono_Cliente",
+      dataIndex: "telefono_cliente",
       render: (text) => <a>{text}</a>,
       editable: true,
     },

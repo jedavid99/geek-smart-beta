@@ -31,19 +31,13 @@ const logout = () => {
   return (
     <>
       <div className="flex flex-shrink-0 p-4 px-4 bg-indigo-600">
-        <a href="#" className="flex-shrink-0 block w-full group">
-          <div className="flex items-center">
-            <div>
-              <img
-                className="h-10 rounded-full mx-auto h-23 w-auto space-y-6"
-                src={Logo}
-              ></img>
-            </div>
-            <div className="ml-1">
-            
-            </div>
-          </div>
-        </a>
+   
+  <img
+  className="h-20 w-40 mx-auto object-cover rounded-md shadow-md"
+  src={Logo}
+></img> 
+   
+
       </div>
 
       <Menu
