@@ -29,6 +29,7 @@ export const UsuariosConfig = () => {
       />
       <Card className="ml-4 mt-4"  >
       <UsuariosLista />
+      </Card>
       <BotonUsuarios />
     </LayoutPrincipal>
   );
