@@ -1,6 +1,5 @@
 node_modules
 .env
-client/src/host.js
 server/db.js
 server/app.js
 server/config.js
