@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Login } from './paginas/Login'
 import { Proveedores } from './paginas/Proveedores';
 import { Home } from './paginas/Home';
-import { Servicio } from './paginas/Servicio';
+import { Telefono } from './paginas/Telefono';
 import { Reportes } from './paginas/Reporte';
 import { Empresa } from './paginas/Empresa';
 import { UsuariosConfig } from './paginas/Usuarios';
@@ -14,11 +14,17 @@ import { GarantiaPDF } from './components/Report/ReporteGarantia';
 import { useState, useEffect } from 'react';
 
 function parseJwt(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
 
   return JSON.parse(jsonPayload);
 }
@@ -27,24 +33,28 @@ function App() {
   const [tokenValid, setTokenValid] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       const parsedToken = parseJwt(token);
       setTokenValid(parsedToken.exp * 1000 > Date.now());
     }
   }, []);
 
-  
+  const handleLoginSuccess = () => {
+    setTokenValid(true);
+  };
+
   return (
+    
     <div>
-      <BrowserRouter>
+     
         <Routes>
-          <Route exact path="/" element={<Login/>}/>
+          <Route exact path="/" element={<Login onSuccess={handleLoginSuccess} />} />
           {tokenValid ? (
             <>
              <Route path="/proveedores" element={<Proveedores/>}/>
       <Route path="/home" element={<Home/>}/>
-      <Route path="/Clientes" element={<Servicio/>}/>
+      <Route path="/Clientes" element={<Telefono/>}/>
       <Route path="/reportes" element={<Reportes/>}/>
       <Route path="/empresa" element={<Empresa/>}/>
       <Route path="/usuarios" element={<UsuariosConfig/>}/>
@@ -54,11 +64,12 @@ function App() {
       <Route path="/Garantias.pdf" element={<GarantiaPDF/>}/>
             </>
           ) : (
-            <Route path="*" element={<Login/>}/>
+            <Route path="*" element={<Login />} />
           )}
         </Routes>
-      </BrowserRouter>
     </div>
+    
+
   );
 }
 

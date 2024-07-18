@@ -4,11 +4,11 @@ import { useState } from "react";
 import { API_URL } from "../host";
 import {message} from "antd";
 import Logo from "../assets/img/geeksmart.jpg";
+import { useNavigate } from 'react-router-dom';
 
 
-
-export const Login = () => {
-
+export const Login = ({ onSuccess }) => {
+  const navigate = useNavigate();
   const [clave, setPassword] = useState('');
   const [usuario, setUsername] = useState('');
   const [loginSuccessful, setLoginSuccessful] = useState(false);
@@ -30,6 +30,8 @@ export const Login = () => {
         if(response.data.token){
           localStorage.setItem('token', response.data.token)
           setLoginSuccessful(true);
+          onSuccess(); // Call the onSuccess function here
+          navigate('/home', { replace: true });
         } else {
           ErrorClave();
         }

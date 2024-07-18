@@ -4,7 +4,7 @@ import {
   UpCircleFilled,
 } from "@ant-design/icons";
 import React, { useState } from "react";
-import { Drawer, FloatButton, Tooltip } from "antd";
+import { Drawer, FloatButton,Button,  Tooltip } from "antd";
 import { FormAgreUser } from "./FormAgreUsua";
 import { FormTareas } from "./tareas/Tareas";
 
@@ -26,28 +26,32 @@ export const BotonUsuarios = () => {
 
   return (
     <>
+    <div  className="float-btn ">
+
+   
       <FloatButton.Group
-        className="float-btn sm:center-btn"
+       className="mb-4"
         icon={<UpCircleFilled />}
         trigger="click"
         type="primary"
         style={{ right: 24 }}
       >
-        <Tooltip placement="leftBottom" title="Agragar usuario" color="blue">
-          <FloatButton
+        <Tooltip placement="leftBottom"  title={window.innerWidth > 576 ? "Agragar usuario " : undefined}  color="blue">
+          <FloatButton className="float-btn"
             icon={<PlusCircleFilled />}
             onClick={showDrawer}
             type="primary"
           />
         </Tooltip>
-        <Tooltip placement="leftBottom" title="Tareas" color="blue">
-          <FloatButton
+        <Tooltip placement="leftBottom" title={window.innerWidth > 576 ? "Agregar tarea " : undefined}  color="blue">
+          <FloatButton className="float-btn"
             icon={<SignatureFilled />}
             onClick={showChat}
             type="primary"
           />
         </Tooltip>
       </FloatButton.Group>
+      </div>
       <Drawer
         title="Agregar Usuario"
         width={400}

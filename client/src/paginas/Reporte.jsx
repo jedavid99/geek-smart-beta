@@ -4,7 +4,7 @@ import "../App.css";
 import { TablaReport } from "../components/Report/TablaReport";
 import { Tareas } from "../components/home/Tareas";
 import { HomeOutlined, FilePdfFilled } from "@ant-design/icons";
-import { Breadcrumb, Card, Space } from "antd";
+import { Breadcrumb, Card, FloatButton, Space } from "antd";
 import { ServicioTotal } from "../components/home/ServicioTotal";
 import { BotonImprimir } from "../components/Report/BotonImprimirReport";
 import { BarChartMes } from "../components/home/barcharMes";
@@ -49,8 +49,13 @@ export const Reportes = () => {
              <BarChartServise />
             </div>
           </div>
-          <BotonImprimir />
+          <BotonImprimir className=" mt-10" />
         </Card>
+        <FloatButton
+          className="float-btn  hidden-on-desktop"
+          type="primary"
+          icon={<FilePdfFilled />}
+        />
       </LayoutPrincipal>
     </div>
   );

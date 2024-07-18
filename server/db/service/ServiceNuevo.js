@@ -1,6 +1,6 @@
 import { db } from "../../db.js";
 
-export const registroProducto = async (req, res) => {
+export const registroServicio = async (req, res) => {
   const {
     nombre,
     categoria,

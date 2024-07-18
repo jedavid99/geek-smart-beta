@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EditFilled, ShopFilled } from "@ant-design/icons";
+import { EditFilled} from "@ant-design/icons";
 import { Drawer, FloatButton, Space, Tooltip } from "antd";
 import { EditarDatosEmpresa } from "./EditarDatosEmpresa";
 
@@ -15,24 +15,17 @@ export const BotonConfigEmpres = () => {
   };
   return (
     <>
-      <FloatButton.Group
-        trigger="click"
-        type="primary"
-        style={{
-          right: 24,
-        }}
-        icon={<EditFilled />}
-        className="float-btn sm:center-btn"
-      >
+     
         {" "}
-        <Tooltip placement="leftBottom" title="Actualizar datos" color="blue">
+        <Tooltip placement="leftBottom"    title={window.innerWidth > 576 ? "Actualizar datos " : undefined} color="blue">
           <FloatButton
             onClick={showDrawer}
             type="primary"
-            icon={<ShopFilled />}
+            icon={<EditFilled />}
+            className="float-btn"
           />
         </Tooltip>
-      </FloatButton.Group>
+   
       <Space></Space>
 
       <Drawer title="Actualizar datos" onClose={onClose} open={open}>

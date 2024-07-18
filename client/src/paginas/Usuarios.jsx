@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
 import { HomeOutlined, SettingFilled } from "@ant-design/icons";
-import { Breadcrumb, Card } from "antd";
+import { Breadcrumb } from "antd";
 import { UsuariosLista } from "../components/Config/Usuarios/UsuariosLista";
 import { BotonUsuarios } from "../components/Config/Usuarios/BotonUsuario";
 
@@ -30,7 +30,6 @@ export const UsuariosConfig = () => {
       <Card className="ml-4 mt-4"  >
       <UsuariosLista />
       <BotonUsuarios />
-      </Card>
     </LayoutPrincipal>
   );
 };

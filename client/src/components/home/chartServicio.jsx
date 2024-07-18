@@ -19,7 +19,7 @@ export const BarChartServise = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await Axios.get(`${API_URL}/producto`);
+      const response = await Axios.get(`${API_URL}/Servicio`);
       const equipos = response.data;
 
       const newData = initialData.map((item) => {

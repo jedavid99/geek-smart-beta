@@ -9,7 +9,7 @@ export const BarChartMes = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get(`${API_URL}/producto`);
+        const response = await Axios.get(`${API_URL}/Servicio`);
         const equiposByFechaIngreso = response.data.reduce((acc, equipo) => {
           if (equipo.fecha_registro) {
             const fechaIngreso = new Date(equipo.fecha_registro);

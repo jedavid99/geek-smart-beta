@@ -60,7 +60,6 @@ export const UsuariosLista = () => {
       <Drawer
         width={400}
         placement="right"
-        closable={false}
         onClose={onClose}
         open={open}
       >

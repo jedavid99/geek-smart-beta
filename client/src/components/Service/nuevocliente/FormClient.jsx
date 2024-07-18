@@ -24,7 +24,7 @@ export const FormCient = () => {
   const [emei_codigo, setEmei_codigo] = useState("");
 
   const AgregarCliente = () => {
-    Axios.post(`${API_URL}/producto`, {
+    Axios.post(`${API_URL}/Servicio`, {
       nombre: nombre,
       categoria: categoria,
       precio: precio,
