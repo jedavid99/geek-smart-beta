@@ -18,7 +18,7 @@ export const TodoLosEquiposPDF = () => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(`${API_URL}/empresa_lista`);
-        const ReparadosResponse = await Axios.get(`${API_URL}/producto`);
+        const ReparadosResponse = await Axios.get(`${API_URL}/Servicio`);
 
         if (response.status === 200 && ReparadosResponse.status === 200) {
           const empresaData = response.data;

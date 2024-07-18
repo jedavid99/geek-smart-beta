@@ -6,6 +6,8 @@ import { TablaReport } from "../components/Report/TablaReport";
 import { BarChartServise } from "../components/home/chartServicio";
 import { BarChartMes } from "../components/home/barcharMes";
 import { DashboardFilled } from "@ant-design/icons";
+import "../App.css";
+
 
 export const Home = () => {
 
@@ -28,7 +30,7 @@ export const Home = () => {
           <Tareas />
         </div>
         <FloatButton
-          className="float-btn sm:center-btn hidden-on-desktop"
+          className="float-btn  hidden-on-desktop"
           type="primary"
           icon={<DashboardFilled />}
         />

@@ -19,7 +19,7 @@ export const GarantiaPDF = () => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(`${API_URL}/empresa_lista`);
-        const garantiaResponse = await Axios.get(`${API_URL}/producto`);
+        const garantiaResponse = await Axios.get(`${API_URL}/Servicio`);
 
         if (response.status === 200 && garantiaResponse.status === 200) {
           const empresaData = response.data;

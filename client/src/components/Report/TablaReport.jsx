@@ -24,7 +24,7 @@ export const TablaReport = () => {
 
   const getTelefonosLista = () => {
     Axios.get(`${API_URL}/producto`, {}).then((response) => {
-      const listaReporWithKeys = response.data.map((item, index) => {
+      const listaTelefonosWithKeys = response.data.map((item, index) => {
         return { ...item, key: index };
       });
       setListaReport(listaReporWithKeys);
@@ -38,7 +38,8 @@ export const TablaReport = () => {
       title: "codigo",
       dataIndex: "codigo",
       width: "5%",
-      ...getColumnSearchProps("codigo"), //
+      render: (text) => <a>{text}</a>,
+      ...getColumnSearchProps("codigo"),
     },
 
     {
@@ -47,12 +48,12 @@ export const TablaReport = () => {
       dataIndex: "nombre",
       render: (text) => <a>{text}</a>,
       editable: true,
-      ...getColumnSearchProps("nombre"), //
+      ...getColumnSearchProps("nombre"),
     },
 
     {
       key: "servicio",
-      title: "Tipo de servio",
+      title: "Servio",
       dataIndex: "servicio",
       render: (text) => <a>{text}</a>,
       width: "50%",
@@ -60,7 +61,7 @@ export const TablaReport = () => {
 
     {
       key: "fecha_registro",
-      title: "Fecha de ingreso",
+      title: "Ingreso",
       dataIndex: "fecha_registro",
       render: (text) => <a>{new Date(text).toLocaleDateString()}</a>,
     },
