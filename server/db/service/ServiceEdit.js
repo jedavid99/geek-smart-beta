@@ -3,28 +3,28 @@ import { db } from "../../db.js";
 export const editarServicio = async (req, res) => {
   const { codigo } = req.params;
   const {
-    DNI,
+    dni,
     nombre,
     categoria,
     servicio,
     dispositivo,
     precio,
-    telefono_Cliente,
+    telefono_cliente,
     descripcion,
     estatus,
     emei_codigo,
   } = req.body;
   try {
     const { rowCount } = await db.query(
-      "UPDATE servicio SET DNI = COALESCE($1, DNI), nombre = COALESCE($2, nombre), categoria = COALESCE($3, categoria), servicio = COALESCE($4, servicio), dispositivo = COALESCE($5, dispositivo), precio = COALESCE($6, precio), telefono_Cliente = COALESCE($7, telefono_Cliente), descripcion = COALESCE($8, descripcion), estatus = COALESCE($9, estatus), emei_codigo = COALESCE($10, emei_codigo) WHERE codigo = $11",
+      "UPDATE servicio SET dni = COALESCE($1, dni), nombre = COALESCE($2, nombre), categoria = COALESCE($3, categoria), servicio = COALESCE($4, servicio), dispositivo = COALESCE($5, dispositivo), precio = COALESCE($6, precio), telefono_cliente = COALESCE($7, telefono_cliente), descripcion = COALESCE($8, descripcion), estatus = COALESCE($9, estatus), emei_codigo = COALESCE($10, emei_codigo) WHERE codigo = $11",
       [
-        DNI,
+        dni,
         nombre,
         categoria,
         servicio,
         dispositivo,
         precio,
-        telefono_Cliente,
+        telefono_cliente,
         descripcion,
         estatus,
         emei_codigo,

@@ -4,7 +4,7 @@ import { Collapse, Tooltip, Typography, theme } from "antd";
 import { API_URL } from "../../host";
 import Axios from "axios";
 
-export const LineaRecordatorio = () => {
+export const Tareas = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {

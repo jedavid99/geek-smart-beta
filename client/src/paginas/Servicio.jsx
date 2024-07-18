@@ -1,15 +1,14 @@
 import React from "react";
 import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
-import { TablaTelefonos } from "../components/Service/servicioTelefonos/TablasTelefono";
-import "../App.css";
+import { TablaServicio } from "../components/Service/TablaServicio";
 import { Breadcrumb, Card } from "antd";
-import { HomeOutlined, UserOutlined, ToolFilled } from "@ant-design/icons";
+import { HomeOutlined, ToolFilled } from "@ant-design/icons";
 import { BotonCliente } from "../components/Service/nuevocliente/BotonCliente";
 
-export const Telefono = () => {
+export const Servicio = () => {
   return (
     <LayoutPrincipal>
-      <Breadcrumb
+      <Breadcrumb className="ml-4"
         items={[
           {
             href: "/home",
@@ -28,12 +27,12 @@ export const Telefono = () => {
           },
         ]}
       />
-      <br />
-      <Card>
-        <TablaTelefonos></TablaTelefonos>
+     
+      <Card className="ml-4 mt-4">
+        <TablaServicio />
       </Card>
 
-      <BotonCliente></BotonCliente>
+      <BotonCliente />
     </LayoutPrincipal>
   );
 };

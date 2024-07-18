@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Drawer, List, Card, } from "antd";
+import { Avatar, Drawer, List, } from "antd";
 import { PerfilUsuario } from "./PerfilUsuario";
 import { OpcionesUsuario } from "./OpcionesEditar";
 import { API_URL } from "../../../host";
@@ -33,7 +33,6 @@ export const UsuariosLista = () => {
 
   return (
     <>
-      <Card>
         <List
           dataSource={usuarios} // Asigna los usuarios al dataSource
           bordered
@@ -58,7 +57,6 @@ export const UsuariosLista = () => {
             </List.Item>
           )}
         />
-      </Card>
       <Drawer
         width={400}
         placement="right"

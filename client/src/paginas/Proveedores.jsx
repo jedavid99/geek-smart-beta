@@ -3,13 +3,13 @@ import { LayoutPrincipal } from "../layouts/LayoutPrincipal";
 import { HomeOutlined,  ShopFilled } from "@ant-design/icons";
 import { TablaPoveedores } from "../components/provedores/TablaProveedores";
 
-import { Breadcrumb, Card, Divider, Radio, Table } from "antd";
+import { Breadcrumb, Card } from "antd";
 import { Flobott } from "../components/provedores/provedor-agre";
 
 export const Proveedores = () => {
   return (
     <LayoutPrincipal>
-      <Breadcrumb
+      <Breadcrumb className="ml-4"
         items={[
           {
             href: "/home",
@@ -25,11 +25,11 @@ export const Proveedores = () => {
           },
         ]}
       />
-      <div className=" ">
-        <Card>
+     
+        <Card className="ml-4 mt-4">
           <TablaPoveedores />
         </Card>
-      </div>
+    
 
       <Flobott />
     </LayoutPrincipal>

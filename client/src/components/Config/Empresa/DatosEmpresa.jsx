@@ -29,12 +29,12 @@ export const DatosEmpresa = () => {
     {
       key: `cuit-${index}`,
       label: "CUIT",
-      children: item.CUIT_CUIL,
+      children: item.cuit_cuil,
     },
     {
       key: `direccion-${index}`,
       label: "Direccion",
-      children: item.Dirección,
+      children: item.dirección,
     },
     {
       key: `tipo-de-servicio-${index}`,

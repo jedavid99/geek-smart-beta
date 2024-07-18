@@ -94,9 +94,10 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item name="categoria" label="Categoria:" rules={[]}>
-              <select value="2" onChange={handleSelectChange}>
-                <option value="1" disabled>
-                  selecione una categoria
+              <select 
+              className="block w-full pl-3 pr-10 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500" onChange={handleSelectChange}>
+                <option value=""disabled selected>
+                  Selecione una categoria
                 </option>
                 <option value="Telefonos">Telefonos</option>
                 <option value="Pc">Pc</option>
@@ -216,10 +217,10 @@ export const FormCient = () => {
           </Col>
           <Col span={12}>
             <Form.Item label="Estatus:" rules={[]}>
-              <select onChange={handleSelectEstatus}>
-                <option disabled>selecione una categoria</option>
-                <option value="Ingresado">ingresado</option>
-                <option value="Presupuestado">presupuestado</option>
+              <select  className="block w-full pl-3 pr-10 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"  onChange={handleSelectEstatus}>
+                <option disabled selected>Selecione una Estatus</option>
+                <option value="Ingresado">Ingresado</option>
+                <option value="Presupuestado">Presupuestado</option>
               </select>
             </Form.Item>
           </Col>

@@ -16,18 +16,18 @@ import useSearch from "../Service/SeachTabla";
 import { API_URL } from "../../host";
 
 export const TablaReport = () => {
-  const [listasTelefonos, setListaTelefonos] = useState([]);
+  const [listasReport, setListaReport] = useState([]);
 
   useEffect(() => {
     getTelefonosLista();
   }, []);
 
   const getTelefonosLista = () => {
-    Axios.get(`${API_URL}/Servicio`, {}).then((response) => {
+    Axios.get(`${API_URL}/producto`, {}).then((response) => {
       const listaTelefonosWithKeys = response.data.map((item, index) => {
         return { ...item, key: index };
       });
-      setListaTelefonos(listaTelefonosWithKeys);
+      setListaReport(listaReporWithKeys);
     });
   };
   const getColumnSearchProps = useSearch();
@@ -157,7 +157,7 @@ export const TablaReport = () => {
     <div>
       <Table
         columns={columns}
-        dataSource={listasTelefonos}
+        dataSource={listasReport}
         pagination={{
           pageSize: 5,
         }}
