@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CloseOutlined,
   MenuOutlined,
@@ -15,10 +15,17 @@ const { Header, Content, Footer, Sider } = Layout;
 export const LayoutPrincipal = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [showMenu, setShowMenu] = useState(false); // Add a new state variable
+  const navigate = useNavigate();
+
+  const logout = () => {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+    }
+    navigate("/", { replace: true });
+  };
+
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
-    setShowMenu(!showMenu); // Toggle the showMenu state when the button is clicked
   };
 
   return (
@@ -42,7 +49,7 @@ export const LayoutPrincipal = ({ children }) => {
         <Layout className="w-full">
           <Header className="flex flex-row ">
             {isDesktop && (
-              <>
+              <div>
                 <Button
                   className="ml-0 mt-4"
                   type="text"
@@ -58,27 +65,26 @@ export const LayoutPrincipal = ({ children }) => {
                     />
                   )}
                 </Button>
-              </>
+              </div>
             )}
 
-            <NavLink
+            <button
               className="nav-link-mobile ml-auto hover:border-l-amber-300"
-              to="/"
+              onClick={logout}
             >
               <PoweroffOutlined
                 className="ml-auto hover:border-l-amber-300"
                 style={{ fontSize: "16px", color: "#ffff" }}
               />
-            </NavLink>
+            </button>
           </Header>
 
           <Content style={{ margin: "0 10px" }}>
             <Breadcrumb style={{ margin: "10px 0" }}></Breadcrumb>
             {children}
+            <MenuTabs />
           </Content>
           <Footer style={{ textAlign: "center" }}></Footer>
-
-          <MenuTabs />
         </Layout>
       </Layout>
     </>

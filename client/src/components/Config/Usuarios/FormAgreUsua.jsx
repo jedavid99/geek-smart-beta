@@ -115,6 +115,7 @@ export const FormAgreUser = () => {
                   setClave(event.target.value);
                 }}
                 placeholder="Clave"
+                type="password"
               />
             </Form.Item>
           </Col>
@@ -158,7 +159,7 @@ export const FormAgreUser = () => {
                   Seleccione una opción
                 </option>
                 <option value="admin">Admin</option>
-                <option value="limitado">limitado</option>
+                <option value="limitado">Limitado</option>
                 <option value="invitado">Invitado</option>
               </select>
             </Form.Item>
@@ -183,8 +184,8 @@ export const FormAgreUser = () => {
                   Seleccione una opción
                 </option>
 
-                <option value="tecnico">tecnico</option>
-                <option value="venderdor">venderdor</option>
+                <option value="Tecnico">Tecnico</option>
+                <option value="Venderdor">Venderdor</option>
                 <option value="Sisteama">Sistema</option>
               </select>
             </Form.Item>

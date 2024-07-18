@@ -19,9 +19,9 @@ import { NavLink } from "react-router-dom";
 
 export const MenuTabs = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
-  const [value, setValue] = useState("recents"); // Move useState calls here
-  const [anchorEl, setAnchorEl] = useState(null); // Add a new state variable for the menu
-  const [anchorSer, setAnchorSer] = useState(null); // Add a new state variable for the menu
+  const [value, setValue] = useState("recents"); 
+  const [anchorEl, setAnchorEl] = useState(null); 
+  const [anchorSer, setAnchorSer] = useState(null); 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -60,7 +60,7 @@ export const MenuTabs = () => {
         sx={{
           width: 353,
           "&.MuiBottomNavigationAction-root": {
-            minWidth: 100, // adjust the width of each action
+            minWidth: 100, 
             // set the background color
           },
         }}
@@ -70,22 +70,22 @@ export const MenuTabs = () => {
         <BottomNavigationAction
           component={NavLink}
           to="/home"
-          value="Dashboard"
+        
           icon={<DashboardFilled />}
           label="Dashboard"
         />
         <BottomNavigationAction
           value="Servicio"
           icon={<ToolFilled />}
-          label="Servicio"
+         
           aria-owns={anchorSer ? "servicio" : undefined}
           aria-haspopup="true"
           onClick={handleClickSer}
         />
         <Menu
-          className=" -translate-y-12 z-10"
+          className="-translate-y-12 z-10"
           id="servicio"
-          anchorSer={anchorSer}
+          anchorEl={anchorSer} 
           open={Boolean(anchorSer)}
           onClose={handleCloseSer}
         >
@@ -99,7 +99,7 @@ export const MenuTabs = () => {
         <BottomNavigationAction
           value="Configuracion"
           icon={<SettingFilled />}
-          label="Configuracion"
+        
           aria-owns={anchorEl ? "admin" : undefined}
           aria-haspopup="true"
           onClick={handleClick}
@@ -107,7 +107,7 @@ export const MenuTabs = () => {
         <Menu
           className="transform -translate-y-10 "
           id="admin"
-          anchorEl={anchorEl}
+          anchorEl={anchorEl} 
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
@@ -133,7 +133,7 @@ export const MenuTabs = () => {
           to="/Reportes"
           value="Reporte"
           icon={<FilePdfFilled />}
-          label="Reporte"
+     
         />{" "}
       </BottomNavigation>
     </>
